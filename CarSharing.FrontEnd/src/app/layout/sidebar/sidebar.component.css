@@ -1,0 +1,5 @@
+:host {
+  padding: 30px;
+  background: linear-gradient(145deg, #b1ede5, #91f8ea);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
