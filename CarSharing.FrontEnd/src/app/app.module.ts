@@ -9,6 +9,8 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { LayoutModule } from './layout/layout.module';
 import { LoginModule } from './login/login.module';
 import { RegistrationModule } from './registration/registration.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
   {
@@ -23,6 +25,8 @@ const routes: Routes = [
     AppComponent
   ],
   imports: [
+    BrowserAnimationsModule,
+    HttpClientModule,
     BrowserModule,
     CommonModule,
     FormsModule,

@@ -8,7 +8,6 @@ import { Component, OnInit } from '@angular/core';
 export class FooterOnlyLayoutComponent implements OnInit {
 
   constructor() {
-    console.log('Footer only layout constructor called');
   }
 
   ngOnInit() {

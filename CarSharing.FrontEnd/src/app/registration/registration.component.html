@@ -1,3 +1,39 @@
-<p>
-  registration works!
-</p>
+<div>
+  <h1 style="display: flex; justify-content: center;">Sign Up</h1>
+  <form [formGroup]="signUpForm" class="sign-up">
+    <!-- First Name Field -->
+    <p>First Name:</p>
+    <mat-form-field>
+      <input placeholder="Enter First Name here..." 
+        type="text" required matInput formControlName="firstName">
+    </mat-form-field>
+
+    <!-- Last Name Field -->
+    <p>Last Name:</p>
+    <mat-form-field>
+      <input placeholder="Enter Last Name here..." 
+        type="text" required matInput formControlName="lastName">
+    </mat-form-field>
+
+    <!-- Email Field -->
+    <p>Email:</p>
+    <mat-form-field>
+      <input placeholder="Enter Email here..." 
+        type="email" required matInput formControlName="email">
+    </mat-form-field>
+
+    <!-- Password Field -->
+    <p>Password:</p>
+    <mat-form-field>
+      <input placeholder="Enter password here..." 
+        type="password" required matInput formControlName="password">
+    </mat-form-field>
+
+     <!-- Password Copy Field -->
+     <p>Password again:</p>
+     <mat-form-field>
+       <input placeholder="Enter password again here..." 
+         type="passwordCopy" required matInput formControlName="passwordCopy">
+     </mat-form-field>
+  </form>
+</div>
