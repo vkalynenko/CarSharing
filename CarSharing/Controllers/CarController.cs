@@ -7,12 +7,12 @@ using Car = CarSharing.Contracts.Car;
 namespace CarSharing.Controllers;
 
 [ApiController]
-public class CustomerController : ControllerBase
+public class CarController : ControllerBase
 {
     private readonly ICarService _service;
     private readonly IMapper _mapper;
 
-    public CustomerController(ICarService service, IMapper mapper)
+    public CarController(ICarService service, IMapper mapper)
     {
         _service = service;
         _mapper = mapper;
