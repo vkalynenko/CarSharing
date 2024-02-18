@@ -32,6 +32,15 @@ builder.Services.AddAutoMapper(mapperConfigurationExpression =>
     mapperConfigurationExpression.AddProfile<ContractToDomain>();
     mapperConfigurationExpression.AddProfile<DomainToSqlProfile>();
 });
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowOrigin",
+        b => b.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+});
+
 var app = builder.Build();
 
 
@@ -43,6 +52,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseCors("AllowOrigin");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
