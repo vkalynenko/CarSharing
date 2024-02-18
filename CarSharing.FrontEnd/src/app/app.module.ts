@@ -8,9 +8,12 @@ import { FormsModule } from '@angular/forms';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { LayoutModule } from './layout/layout.module';
 import { LoginModule } from './login/login.module';
-import { RegistrationModule } from './registration/registration.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { RegistrationModule } from './registration/registration.module';
+import { CarsModule } from './pages/cars/cars.module';
+import { FinesModule } from './pages/fines/fines.module';
+import { ClientsModule } from './pages/clients/clients.module';
 
 const routes: Routes = [
   {
@@ -34,7 +37,10 @@ const routes: Routes = [
     LayoutModule,
     LoginModule,
     DashboardModule,
-    RegistrationModule
+    RegistrationModule,
+    CarsModule,
+    FinesModule,
+    ClientsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

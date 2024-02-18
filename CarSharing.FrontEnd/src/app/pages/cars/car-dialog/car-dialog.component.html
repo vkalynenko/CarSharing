@@ -1,0 +1,88 @@
+<div class="add-dialog-wrapper">
+    <mat-dialog-actions align="end">
+        <button mat-dialog-close mat-icon-button class="close-button">
+            <mat-icon class="close-icon" color="warn">close</mat-icon></button>
+    </mat-dialog-actions>
+
+    <h2 mat-dialog-title>Car Details</h2>
+    <mat-dialog-content class="mat-typography form-style">
+        <div class="row">
+            <form class="content-wrapper"
+                [formGroup]="form"
+                name="customerForm"
+                autocomplete="off">
+                <div class="column">
+                    <mat-form-field appearance="outline">
+                        <mat-label>
+                            Бренд
+                        </mat-label>
+                        <input type="text" required formControlName="brand" matInput>
+                        <mat-error *ngIf="form.get('brand')?.hasError('required')">
+                            Поле обов'язкове для заповнення
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>
+                            Модель
+                        </mat-label>
+                        <input type="text" required formControlName="model" matInput>
+                        <mat-error *ngIf="form.get('model')?.hasError('required')">
+                            Поле обов'язкове для заповнення
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>
+                            Дата випуску
+                        </mat-label>
+                        <input type="number" required formControlName="releaseYear" matInput>
+                        <mat-error *ngIf="form.get('releaseYear')?.hasError('required')">
+                            Поле обов'язкове для заповнення
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="column">
+                    <mat-form-field appearance="outline">
+                        <mat-label>
+                            Коробка передач
+                        </mat-label>
+                        <input type="text" required formControlName="gearBox" matInput>
+                        <mat-error *ngIf="form.get('gearBox')?.hasError('required')">
+                            Поле обов'язкове для заповнення
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>
+                        Кількість місць
+                        </mat-label>
+                        <input type="number" required formControlName="seatsQuantity" matInput>
+                        <mat-error *ngIf="form.get('seatsQuantity')?.hasError('required')">
+                            Поле обов'язкове для заповнення
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>
+                        Подобова ціна за оренду
+                        </mat-label>
+                        <input type="number" required formControlName="dailyRentalPrice" matInput>
+                        <mat-error *ngIf="form.get('dailyRentalPrice')?.hasError('required')">
+                            Поле обов'язкове для заповнення
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </form>
+        </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="center">
+        <button
+            [disabled]="form.invalid"
+            color="accent"
+            class="saveBtn"
+            (click)="onSave()"
+            mat-raised-button>
+            Save
+        </button>
+    </mat-dialog-actions>
+</div>
