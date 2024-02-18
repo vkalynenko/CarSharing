@@ -68,7 +68,7 @@ public class CarController : ControllerBase
     [ProducesResponseType(400)]
     [ProducesResponseType(404)]
     [ProducesResponseType(500)]
-    public async Task<IActionResult> UpdateCar([FromRoute] int id)
+    public async Task<IActionResult> DeleteCar([FromRoute] int id)
     {
         await _service.DeleteCar(id);
         return Ok();
