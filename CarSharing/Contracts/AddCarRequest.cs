@@ -13,6 +13,4 @@ public class AddCarRequest
     public double DailyRentalPrice { get; set; }
 
     public int ReleaseYear { get; set; }
-
-    public bool IsInUse { get; set; } = false;
 }
