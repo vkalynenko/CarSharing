@@ -6,4 +6,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CarSharing.DataAccess\CarSharing.DataAccess.csproj" />
+    <ProjectReference Include="..\CarSharing.Domain\CarSharing.Domain.csproj" />
+    <ProjectReference Include="..\CarSharing.Services.Abstractions\CarSharing.Services.Abstractions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+  </ItemGroup>
+
 </Project>
