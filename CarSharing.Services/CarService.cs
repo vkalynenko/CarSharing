@@ -7,12 +7,10 @@ namespace CarSharing.Services;
 
 public class CarService : ICarService
 {
-    private readonly IMapper _mapper;
     private readonly ICarRepository _repository;
 
-    public CarService(IMapper mapper, ICarRepository repository)
+    public CarService(ICarRepository repository)
     {
-        _mapper = mapper;
         _repository = repository;
     }
 

@@ -36,7 +36,7 @@ public class CarRepository : ICarRepository
 
     public async Task<Domain.DTOs.Car> GetCar(int id)
     {
-        var car = _context.Cars.SingleOrDefault(c => c.Id == id);
+        var car = await _context.Cars.SingleOrDefaultAsync(c => c.Id == id);
         return _mapper.Map<Domain.DTOs.Car>(car);
     }
 

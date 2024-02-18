@@ -9,5 +9,8 @@ public class ContractToDomain: Profile
     {
         CreateMap<AddCarRequest, Domain.DTOs.Car>();
         CreateMap<Domain.DTOs.Car, Car>().ReverseMap();
+        CreateMap<AddCustomerRequest, Domain.DTOs.Customer>();
+        CreateMap<UpdateCustomerRequest, Domain.DTOs.Customer>();
+        CreateMap<Customer, Domain.DTOs.Customer>().ReverseMap();
     }
 }

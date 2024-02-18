@@ -9,5 +9,7 @@ public class DomainToSqlProfile: Profile
     {
         CreateMap<CarSharing.Domain.DTOs.Car, Car>();
         CreateMap<Car, CarSharing.Domain.DTOs.Car>();
+        CreateMap<CarSharing.Domain.DTOs.Customer, Customer>();
+        CreateMap<Customer, CarSharing.Domain.DTOs.Customer>();
     }
 }

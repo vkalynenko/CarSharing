@@ -19,21 +19,13 @@ public class CarController : ControllerBase
     }
 
     [HttpPost("car")]
-    [ProducesResponseType(typeof(AddCarResponse), 200)]
-    [ProducesResponseType(400)]
-    [ProducesResponseType(404)]
-    [ProducesResponseType(500)]
     public async Task<int> AddCar(AddCarRequest request)
     {
         var car = _mapper.Map<Domain.DTOs.Car>(request);
         return await _service.AddCar(car);
     }
     
-    [HttpGet("car/{id}")]
-    [ProducesResponseType(typeof(AddCarResponse), 200)]
-    [ProducesResponseType(400)]
-    [ProducesResponseType(404)]
-    [ProducesResponseType(500)]
+    [HttpGet("car/{id:int}")]
     public async Task<Car> GetCarById([FromRoute] int id)
     {
         var car =  await _service.GetCarById(id);
@@ -41,10 +33,6 @@ public class CarController : ControllerBase
     }
     
     [HttpGet("car")]
-    [ProducesResponseType(typeof(AddCarResponse), 200)]
-    [ProducesResponseType(400)]
-    [ProducesResponseType(404)]
-    [ProducesResponseType(500)]
     public async Task<List<Car>> GetAllCars()
     {
         var car =  await _service.GetAllCars();
@@ -52,10 +40,6 @@ public class CarController : ControllerBase
     }
     
     [HttpPut("car")]
-    [ProducesResponseType(typeof(AddCarResponse), 200)]
-    [ProducesResponseType(400)]
-    [ProducesResponseType(404)]
-    [ProducesResponseType(500)]
     public async Task<IActionResult> UpdateCar(Car request)
     {
         var car = _mapper.Map<Domain.DTOs.Car>(request);
@@ -63,11 +47,7 @@ public class CarController : ControllerBase
         return Ok();
     }
     
-    [HttpDelete("car/{id}")]
-    [ProducesResponseType(typeof(AddCarResponse), 200)]
-    [ProducesResponseType(400)]
-    [ProducesResponseType(404)]
-    [ProducesResponseType(500)]
+    [HttpDelete("car/{id:int}")]
     public async Task<IActionResult> DeleteCar([FromRoute] int id)
     {
         await _service.DeleteCar(id);
