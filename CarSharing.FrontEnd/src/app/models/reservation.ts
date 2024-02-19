@@ -1,10 +1,10 @@
 import { Car } from "./car";
-import { Customer } from "./customer";
+import { Client } from "./customer";
 import { Fine } from "./fine";
 
-export class Reservation {
+export class Booking {
     public id!: number;
-    public customer!: Customer;
+    public customer!: Client;
     public car!: Car;
 
     public startDate!: Date;
