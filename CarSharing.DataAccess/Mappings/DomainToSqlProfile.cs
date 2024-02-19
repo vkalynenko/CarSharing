@@ -11,5 +11,7 @@ public class DomainToSqlProfile: Profile
         CreateMap<Car, CarSharing.Domain.DTOs.Car>();
         CreateMap<CarSharing.Domain.DTOs.Customer, Customer>();
         CreateMap<Customer, CarSharing.Domain.DTOs.Customer>();
+        CreateMap<CarSharing.Domain.DTOs.Fine, Fine>();
+        CreateMap<Fine, CarSharing.Domain.DTOs.Fine>();
     }
 }
