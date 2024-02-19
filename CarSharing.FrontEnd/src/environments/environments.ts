@@ -1,3 +1,3 @@
 export const environments = {
-    apiUrl: 'https://localhost:4200/api'
+    apiUrl: 'https://localhost:7107'
 }
