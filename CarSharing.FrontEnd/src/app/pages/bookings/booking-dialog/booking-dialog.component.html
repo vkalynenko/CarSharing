@@ -1,0 +1,155 @@
+<div class="add-dialog-wrapper">
+    <mat-dialog-actions align="end">
+        <button mat-dialog-close mat-icon-button class="close-button">
+            <mat-icon class="close-icon" color="warn">close</mat-icon></button>
+    </mat-dialog-actions>
+
+    <h2 mat-dialog-title>Інформація щодо бронювання</h2>
+    <mat-dialog-content class="mat-typography form-style">
+        <!-- Create -->
+        <div *ngIf="!booking.id" class="row">
+            <form class="content-wrapper"
+                [formGroup]="form"
+                name="fineForm"
+                autocomplete="off">
+                <div class="column">
+                    <mat-form-field appearance="outline">
+                        <mat-label>
+                            Машина
+                        </mat-label>
+                        <mat-select *ngFor="let car of cars">
+                            <mat-option [value]="car">{{car.brand}} {{car.model}}</mat-option> 
+                        </mat-select>
+                        <mat-error *ngIf="form.get('startDate')?.hasError('required')">
+                            Поле обов'язкове для заповнення
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>
+                            Клієнт
+                        </mat-label>
+                        <mat-select *ngFor="let client of clients">
+                            <mat-option [value]="client">{{client.firstName}} {{client.lastName}}</mat-option> 
+                        </mat-select>
+                        <mat-error *ngIf="form.get('expectedReturnDate')?.hasError('required')">
+                            Поле обов'язкове для заповнення
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="column">
+                    <mat-form-field appearance="outline">
+                        <mat-label>
+                            Дата початку оренди
+                        </mat-label>
+                        <input type="date" required formControlName="startDate" matInput>
+                        <mat-error *ngIf="form.get('startDate')?.hasError('required')">
+                            Поле обов'язкове для заповнення
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>
+                            Очікувана дата повернення
+                        </mat-label>
+                        <input type="date" required formControlName="expectedReturnDate" matInput>
+                        <mat-error *ngIf="form.get('expectedReturnDate')?.hasError('required')">
+                            Поле обов'язкове для заповнення
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </form>
+        </div>
+
+        <!-- Edit -->
+        <div *ngIf="booking.id" class="row">
+            <form class="content-wrapper"
+                [formGroup]="form"
+                name="fineForm"
+                autocomplete="off">
+                <div class="column">
+                    <mat-form-field appearance="outline">
+                        <mat-label>
+                            Машина
+                        </mat-label>
+                        <mat-select *ngFor="let car of cars">
+                            <mat-option [value]="car">{{car.brand}} {{car.model}}</mat-option> 
+                        </mat-select>
+                        <mat-error *ngIf="form.get('startDate')?.hasError('required')">
+                            Поле обов'язкове для заповнення
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>
+                            Клієнт
+                        </mat-label>
+                        <mat-select *ngFor="let client of clients">
+                            <mat-option [value]="client">{{client.firstName}} {{client.lastName}}</mat-option> 
+                        </mat-select>
+                        <mat-error *ngIf="form.get('expectedReturnDate')?.hasError('required')">
+                            Поле обов'язкове для заповнення
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>
+                            Дата початку оренди
+                        </mat-label>
+                        <input type="date" required formControlName="startDate" matInput>
+                        <mat-error *ngIf="form.get('startDate')?.hasError('required')">
+                            Поле обов'язкове для заповнення
+                        </mat-error>
+                    </mat-form-field>
+
+                </div>
+                <div class="column">
+                    <mat-form-field appearance="outline">
+                        <mat-label>
+                            Очікувана дата повернення
+                        </mat-label>
+                        <input type="date" required formControlName="expectedReturnDate" matInput>
+                        <mat-error *ngIf="form.get('expectedReturnDate')?.hasError('required')">
+                            Поле обов'язкове для заповнення
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>
+                            Дата поверення
+                        </mat-label>
+                        <input type="date" required formControlName="actualReturnDate" matInput>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>
+                            Штрафи
+                        </mat-label>
+                        <mat-select *ngFor="let fine of fines" multiple>
+                            <mat-option [value]="fine">{{fine.description}}: {{fine.price}}</mat-option> 
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </form>
+        </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="center">
+        <button
+            [disabled]="form.invalid"
+            color="accent"
+            class="saveBtn"
+            (click)="onSave()"
+            mat-raised-button>
+            Зберегти
+            </button>
+        <button
+            *ngIf="booking.id"
+            color="warn"
+            class="saveBtn"
+            (click)="onDelete()"
+            mat-raised-button>
+            Видалити
+        </button>
+    </mat-dialog-actions>
+</div>
