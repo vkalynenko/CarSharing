@@ -13,5 +13,7 @@ public class ContractToDomain: Profile
         CreateMap<UpdateCustomerRequest, Domain.DTOs.Customer>();
         CreateMap<Customer, Domain.DTOs.Customer>().ReverseMap();
         CreateMap<Fine, Domain.DTOs.Fine>().ReverseMap();
+        CreateMap<AddReservationRequest, Domain.DTOs.CreateReservation>();
+        CreateMap<Reservation, Domain.DTOs.Reservation>().ReverseMap();
     }
 }

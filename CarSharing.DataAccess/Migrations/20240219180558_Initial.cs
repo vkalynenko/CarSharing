@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CarSharing.DataAccess.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -21,7 +21,7 @@ namespace CarSharing.DataAccess.Migrations
                     SeatsQuantity = table.Column<int>(type: "int", nullable: false),
                     DailyRentalPrice = table.Column<double>(type: "float", nullable: false),
                     ReleaseYear = table.Column<int>(type: "int", nullable: false),
-                    PhotoUrl = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    IsInUse = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -46,6 +46,20 @@ namespace CarSharing.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Fines",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Price = table.Column<double>(type: "float", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Fines", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Reservations",
                 columns: table => new
                 {
@@ -54,8 +68,8 @@ namespace CarSharing.DataAccess.Migrations
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ExpectedReturnDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ActualReturnDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CarId = table.Column<int>(type: "int", nullable: true),
-                    CustomerId = table.Column<int>(type: "int", nullable: true)
+                    CarId = table.Column<int>(type: "int", nullable: false),
+                    CustomerId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -64,38 +78,44 @@ namespace CarSharing.DataAccess.Migrations
                         name: "FK_Reservations_Cars_CarId",
                         column: x => x.CarId,
                         principalTable: "Cars",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Reservations_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Fines",
+                name: "FineReservation",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Price = table.Column<double>(type: "float", nullable: false),
-                    ReservationId = table.Column<int>(type: "int", nullable: true)
+                    FinesId = table.Column<int>(type: "int", nullable: false),
+                    ReservationsId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Fines", x => x.Id);
+                    table.PrimaryKey("PK_FineReservation", x => new { x.FinesId, x.ReservationsId });
                     table.ForeignKey(
-                        name: "FK_Fines_Reservations_ReservationId",
-                        column: x => x.ReservationId,
+                        name: "FK_FineReservation_Fines_FinesId",
+                        column: x => x.FinesId,
+                        principalTable: "Fines",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FineReservation_Reservations_ReservationsId",
+                        column: x => x.ReservationsId,
                         principalTable: "Reservations",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Fines_ReservationId",
-                table: "Fines",
-                column: "ReservationId");
+                name: "IX_FineReservation_ReservationsId",
+                table: "FineReservation",
+                column: "ReservationsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reservations_CarId",
@@ -110,6 +130,9 @@ namespace CarSharing.DataAccess.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "FineReservation");
+
             migrationBuilder.DropTable(
                 name: "Fines");
 

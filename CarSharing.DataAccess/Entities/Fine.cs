@@ -7,4 +7,6 @@ public class Fine
     public string Description { get; set; }
 
     public double Price { get; set; }
+    
+    public virtual ICollection<Reservation> Reservations { get; set; }
 }

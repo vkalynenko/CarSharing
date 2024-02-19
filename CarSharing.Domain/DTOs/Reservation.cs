@@ -1,22 +1,20 @@
-namespace CarSharing.DataAccess.Entities;
+namespace CarSharing.Domain.DTOs;
 
 public class Reservation
 {
     public int Id { get; set; }
-    
+
     public DateTime StartDate { get; set; }
 
     public DateTime ExpectedReturnDate { get; set; }
 
     public DateTime? ActualReturnDate { get; set; }
 
-    public int CarId { get; set; }
-
-    public int CustomerId { get; set; }
-
     public Car Car { get; set; }
 
     public Customer Customer { get; set; }
+
+    public List<Fine> Fines { get; set; }
     
-    public virtual ICollection<Fine> Fines { get; set; }
+    public double TotalSum { get; set; }
 }
