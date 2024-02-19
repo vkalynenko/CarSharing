@@ -89,33 +89,40 @@ namespace CarSharing.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FineReservation",
+                name: "ReservationFine",
                 columns: table => new
                 {
-                    FinesId = table.Column<int>(type: "int", nullable: false),
-                    ReservationsId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FineId = table.Column<int>(type: "int", nullable: false),
+                    ReservationId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FineReservation", x => new { x.FinesId, x.ReservationsId });
+                    table.PrimaryKey("PK_ReservationFine", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FineReservation_Fines_FinesId",
-                        column: x => x.FinesId,
+                        name: "FK_ReservationFine_Fines_FineId",
+                        column: x => x.FineId,
                         principalTable: "Fines",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_FineReservation_Reservations_ReservationsId",
-                        column: x => x.ReservationsId,
+                        name: "FK_ReservationFine_Reservations_ReservationId",
+                        column: x => x.ReservationId,
                         principalTable: "Reservations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_FineReservation_ReservationsId",
-                table: "FineReservation",
-                column: "ReservationsId");
+                name: "IX_ReservationFine_FineId",
+                table: "ReservationFine",
+                column: "FineId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ReservationFine_ReservationId",
+                table: "ReservationFine",
+                column: "ReservationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reservations_CarId",
@@ -131,7 +138,7 @@ namespace CarSharing.DataAccess.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "FineReservation");
+                name: "ReservationFine");
 
             migrationBuilder.DropTable(
                 name: "Fines");

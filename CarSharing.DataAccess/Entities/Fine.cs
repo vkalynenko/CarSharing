@@ -8,5 +8,5 @@ public class Fine
 
     public double Price { get; set; }
     
-    public virtual ICollection<Reservation> Reservations { get; set; }
+    public virtual ICollection<ReservationFine> ReservationFines { get; set; }
 }

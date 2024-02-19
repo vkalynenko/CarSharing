@@ -1,9 +1,9 @@
-namespace CarSharing.DataAccess.Entities;
+namespace CarSharing.Domain.DTOs;
 
-public class Reservation
+public class UpdateReservation
 {
     public int Id { get; set; }
-    
+
     public DateTime StartDate { get; set; }
 
     public DateTime ExpectedReturnDate { get; set; }
@@ -14,9 +14,5 @@ public class Reservation
 
     public int CustomerId { get; set; }
 
-    public Car Car { get; set; }
-
-    public Customer Customer { get; set; }
-    
-    public virtual ICollection<ReservationFine> ReservationFines { get; set; }
+    public List<int> FineIds { get; set; }
 }
