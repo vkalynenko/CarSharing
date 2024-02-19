@@ -15,3 +15,11 @@ export class Booking {
 
     public fines: Fine[] = [];
 }
+
+export class CreateBooking {
+    public startDate!: string;
+    public expectedReturnDate!: string;
+
+    public customerId!: number;
+    public carId!: number;
+}

@@ -17,31 +17,37 @@
         <!-- Car Column -->
         <ng-container matColumnDef="car">
             <th mat-header-cell *matHeaderCellDef>Машина</th>
-            <td mat-cell *matCellDef="let element">{{element.brand}} {{element.model}}</td>
+            <td mat-cell *matCellDef="let element">{{element.car.brand}} {{element.car.model}}</td>
         </ng-container>
       
         <!-- Client Column -->
         <ng-container matColumnDef="client">
           <th mat-header-cell *matHeaderCellDef>Клієнт</th>
-          <td mat-cell *matCellDef="let element">{{element.firstName}} {{element.lastName}}</td>
+          <td mat-cell *matCellDef="let element">{{element.customer.firstName}} {{element.customer.lastName}}</td>
         </ng-container>
 
          <!-- Start Date Column -->
          <ng-container matColumnDef="startDate">
-          <th mat-header-cell *matHeaderCellDef>Клієнт</th>
-          <td mat-cell *matCellDef="let element">{{element.startDate}}</td>
+          <th mat-header-cell *matHeaderCellDef>Дата бронювання</th>
+          <td mat-cell *matCellDef="let element">{{element.startDate | date: 'dd MMMM yyyy'}}</td>
         </ng-container>
 
         <!-- Expected Return Date Column -->
         <ng-container matColumnDef="expectedReturnDate">
-          <th mat-header-cell *matHeaderCellDef>Клієнт</th>
-          <td mat-cell *matCellDef="let element">{{element.expectedReturnDate}}</td>
+          <th mat-header-cell *matHeaderCellDef>Очікувана дата поверення</th>
+          <td mat-cell *matCellDef="let element">{{element.expectedReturnDate | date: 'dd MMMM yyyy'}}</td>
         </ng-container>
 
         <!-- Actual Return Date Column -->
         <ng-container matColumnDef="actualReturnDate">
-          <th mat-header-cell *matHeaderCellDef>Клієнт</th>
-          <td mat-cell *matCellDef="let element">{{element.actualReturnDate}}</td>
+          <th mat-header-cell *matHeaderCellDef>Дата повернення</th>
+          <td mat-cell *matCellDef="let element">{{element.actualReturnDate | date: 'dd MMMM yyyy'}}</td>
+        </ng-container>
+
+        <!-- Total Sum Column -->
+        <ng-container matColumnDef="totalSum">
+          <th mat-header-cell *matHeaderCellDef>Сума до сплати</th>
+          <td mat-cell *matCellDef="let element">{{element.totalSum}}</td>
         </ng-container>
       
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
