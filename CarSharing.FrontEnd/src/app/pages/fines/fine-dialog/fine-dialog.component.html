@@ -1,0 +1,59 @@
+<div class="add-dialog-wrapper">
+    <mat-dialog-actions align="end">
+        <button mat-dialog-close mat-icon-button class="close-button">
+            <mat-icon class="close-icon" color="warn">close</mat-icon></button>
+    </mat-dialog-actions>
+
+    <h2 mat-dialog-title>Інформація щодо штрафів</h2>
+    <mat-dialog-content class="mat-typography form-style">
+        <div>
+            <form class="content-wrapper"
+                [formGroup]="form"
+                name="fineForm"
+                autocomplete="off">
+                <div class="column">
+                    <mat-form-field appearance="outline">
+                        <mat-label>
+                            Опис штрафу
+                        </mat-label>
+                        <textarea
+                            formControlName="description" matInput></textarea>
+                        <!-- <input type="text" required formControlName="description" matInput> -->
+                        <mat-error *ngIf="form.get('description')?.hasError('required')">
+                            Поле обов'язкове для заповнення
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>
+                            Штраф (грн.)
+                        </mat-label>
+                        <input type="number" required formControlName="price" matInput>
+                        <mat-error *ngIf="form.get('price')?.hasError('required')">
+                            Поле обов'язкове для заповнення
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </form>
+        </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="center">
+        <button
+            [disabled]="form.invalid"
+            color="accent"
+            class="saveBtn"
+            (click)="onSave()"
+            mat-raised-button>
+            Зберегти
+            </button>
+        <button
+            *ngIf="fine.id"
+            color="warn"
+            class="saveBtn"
+            (click)="onDelete()"
+            mat-raised-button>
+            Видалити
+        </button>
+    </mat-dialog-actions>
+</div>
