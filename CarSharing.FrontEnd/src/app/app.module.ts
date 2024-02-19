@@ -14,6 +14,7 @@ import { RegistrationModule } from './registration/registration.module';
 import { CarsModule } from './pages/cars/cars.module';
 import { FinesModule } from './pages/fines/fines.module';
 import { ClientsModule } from './pages/clients/clients.module';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 
 const routes: Routes = [
   {
@@ -42,7 +43,9 @@ const routes: Routes = [
     FinesModule,
     ClientsModule
   ],
-  providers: [],
+  providers: [
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

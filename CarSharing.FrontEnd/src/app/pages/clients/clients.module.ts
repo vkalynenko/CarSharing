@@ -8,6 +8,11 @@ import { MatButtonModule } from "@angular/material/button";
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ClientsRoutingModule } from './clients-routing.module';
 import { ClientsComponent } from './clients.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';
+import { ClientDialogComponent } from './client-dialog/client-dialog.component';
 
 @NgModule({
   imports: [
@@ -17,8 +22,12 @@ import { ClientsComponent } from './clients.component';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatTableModule,
+    MatDialogModule,
+    MatIconModule,
+    MatCheckboxModule
   ],
-  declarations: [ClientsComponent]
+  declarations: [ClientsComponent, ClientDialogComponent]
 })
 export class ClientsModule { }

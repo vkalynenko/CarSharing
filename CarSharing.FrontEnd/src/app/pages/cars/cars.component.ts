@@ -29,6 +29,10 @@ export class CarsComponent implements OnInit {
       .subscribe((cars: Car[]) => this.cars = cars);
   }
 
+  addCar(): void {
+    this.showDetails(new Car());
+  }
+
   showDetails(row: Car): void {
     this._matDialog.open(CarDialogComponent, {
       minWidth: '200px',

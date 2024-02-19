@@ -27,7 +27,7 @@ export class CarDialogComponent implements OnInit {
             model: [this.car.model, Validators.required],
             brand: [this.car.brand, Validators.required],
             releaseYear: [this.car.releaseYear, Validators.required],
-            isInUse: [this.car.isInUse],
+            isInUse: [this.car.isInUse || false],
             gearBox: [this.car.gearBox, Validators.required],
             seatsQuantity: [this.car.seatsQuantity, [Validators.required, Validators.min(1)]],
             dailyRentalPrice: [this.car.dailyRentalPrice, [Validators.required]]
