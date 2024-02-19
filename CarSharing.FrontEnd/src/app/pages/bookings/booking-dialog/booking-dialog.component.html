@@ -154,6 +154,10 @@
             <p *ngIf="form.get('customer')?.value.isRegular">Знижка клієнта: -5%</p>
             <p *ngIf="!form.get('customer')?.value.isRegular">Сума: <b>{{getTotalSum()}}</b></p>
             <p *ngIf="form.get('customer')?.value.isRegular">Сума: <del>{{getTotalSum(false)}}</del>&nbsp;&nbsp;&nbsp; {{getTotalSum()}}</p>
+            <p *ngIf="form.get('fines')?.value.length > 0">Наявні штрафи:</p>
+            <ul *ngIf="form.get('fines')?.value.length > 0">
+                <li *ngFor="let fine of form.get('fines')?.value">{{fine.description}} {{fine.price}}.</li>
+            </ul>
         </div>
     </mat-dialog-content>
 

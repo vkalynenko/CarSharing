@@ -1,5 +1,5 @@
 import { AfterViewInit, ChangeDetectorRef, Component, Inject, OnInit } from "@angular/core";
-import { Booking, CreateBooking } from "../../../models/reservation";
+import { Booking, CreateBooking, UpdateBooking } from "../../../models/reservation";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { CarService } from "../../../services/car.service";
@@ -84,37 +84,58 @@ export class BookingDialogComponent implements OnInit, AfterViewInit  {
         this.updateBooking();
     } else {
         this.createBooking();
+        this._matDialogRef.close();
     }
-    this._matDialogRef.close();
    }
 
    private updateBooking(): void {
     const formValue = this.form.value as Booking;  
     if (formValue.actualReturnDate) {
-        // const dialogRef = this._matDialog.open(WarningDialogComponent, {
-        //     disableClose: true,
-        //     width: '400px'
-        // });
-        // dialogRef.componentInstance.message = 'Ви впевнені, що хочете підтвердити повернення машини? Після натискання кнопки ви не зможете більше відредагувати бронювання.'; 
-        // dialogRef.afterClosed().subscribe((res: boolean) => {
-        //     if (res) {
-
-        //     }
-        // })
+        const dialogRef = this._matDialog.open(WarningDialogComponent, {
+            disableClose: true,
+            width: '400px'
+        });
+        dialogRef.componentInstance.message = 'Ви впевнені, що хочете підтвердити повернення машини? Після натискання кнопки ви не зможете більше відредагувати бронювання.'; 
+        dialogRef.afterClosed().subscribe((res: boolean) => {
+            if (res) {
+                const booking: UpdateBooking = this.createBookingForUpdate();
+                this.data.updateBooking(booking);
+                this._matDialogRef.close();
+            }
+        })
     }  
     else if (formValue.fines.length > 0){
-        // const dialogRef = this._matDialog.open(WarningDialogComponent, {
-        //     disableClose: true,
-        //     width: '400px'
-        // });
-        // dialogRef.componentInstance.message = 'Ви впевнені, що хочете зберегти форму без Дати повернення? Усі наявні штрафи будут стерті.'; 
-        // dialogRef.afterClosed().subscribe((res: boolean) => {
-        //     if (res) {
-
-        //     }
-        // })
+        const dialogRef = this._matDialog.open(WarningDialogComponent, {
+            disableClose: true,
+            width: '400px'
+        });
+        dialogRef.componentInstance.message = 'Ви впевнені, що хочете зберегти форму без Дати повернення? Усі наявні штрафи будут стерті.'; 
+        dialogRef.afterClosed().subscribe((res: boolean) => {
+            if (res) {
+                const booking: UpdateBooking = this.createBookingForUpdate(false);
+                this.data.updateBooking(booking);
+                this._matDialogRef.close();
+            }
+        })
+    } else {
+        const booking: UpdateBooking = this.createBookingForUpdate();
+        this.data.updateBooking(booking);
+        this._matDialogRef.close();
     }
-   // this.data.updateBooking(formValue);
+   }
+
+   createBookingForUpdate(addFines: boolean = true): UpdateBooking {
+    const formValue = this.form.value as Booking;  
+    const booking: UpdateBooking = {
+        customerId: formValue.customer.id,
+        carId: formValue.car.id,
+        expectedReturnDate: moment(formValue.expectedReturnDate).format('YYYY-MM-DD'),
+        startDate: moment(formValue.startDate).format('YYYY-MM-DD'),
+        actualReturnDate: moment(formValue.actualReturnDate).format('YYYY-MM-DD'),
+        fineIds: addFines ? formValue.fines.map(f => f.id): []
+    } as UpdateBooking;
+
+    return booking;
    }
 
    private createBooking(): void {
@@ -141,7 +162,8 @@ export class BookingDialogComponent implements OnInit, AfterViewInit  {
         const totalDays = Math.ceil((new Date(targetDate).getTime() - new Date(formValue.startDate).getTime()) / (1000 * 60 * 60 * 24)) + 1;
         let finesSum = 0;
         for (const fine of formValue.fines) {
-            finesSum += fine.Price;
+            console.log(fine)
+            finesSum += fine.price;
         }
         return (formValue.car.dailyRentalPrice * totalDays + finesSum) * discount;
     }

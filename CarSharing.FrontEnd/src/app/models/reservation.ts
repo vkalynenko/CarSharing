@@ -23,3 +23,8 @@ export class CreateBooking {
     public customerId!: number;
     public carId!: number;
 }
+
+export class UpdateBooking extends CreateBooking{
+    public actualReturnDate!: string;
+    public fineIds: number[] = [];
+}
