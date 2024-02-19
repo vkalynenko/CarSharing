@@ -98,12 +98,7 @@ namespace CarSharing.DataAccess.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<int?>("ReservationId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ReservationId");
 
                     b.ToTable("Fines");
                 });
@@ -119,10 +114,10 @@ namespace CarSharing.DataAccess.Migrations
                     b.Property<DateTime?>("ActualReturnDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("CarId")
+                    b.Property<int>("CarId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CustomerId")
+                    b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("ExpectedReturnDate")
@@ -140,31 +135,53 @@ namespace CarSharing.DataAccess.Migrations
                     b.ToTable("Reservations");
                 });
 
-            modelBuilder.Entity("CarSharing.DataAccess.Entities.Fine", b =>
+            modelBuilder.Entity("FineReservation", b =>
                 {
-                    b.HasOne("CarSharing.DataAccess.Entities.Reservation", null)
-                        .WithMany("Fines")
-                        .HasForeignKey("ReservationId");
+                    b.Property<int>("FinesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ReservationsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("FinesId", "ReservationsId");
+
+                    b.HasIndex("ReservationsId");
+
+                    b.ToTable("FineReservation");
                 });
 
             modelBuilder.Entity("CarSharing.DataAccess.Entities.Reservation", b =>
                 {
                     b.HasOne("CarSharing.DataAccess.Entities.Car", "Car")
                         .WithMany()
-                        .HasForeignKey("CarId");
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("CarSharing.DataAccess.Entities.Customer", "Customer")
                         .WithMany()
-                        .HasForeignKey("CustomerId");
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Car");
 
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("CarSharing.DataAccess.Entities.Reservation", b =>
+            modelBuilder.Entity("FineReservation", b =>
                 {
-                    b.Navigation("Fines");
+                    b.HasOne("CarSharing.DataAccess.Entities.Fine", null)
+                        .WithMany()
+                        .HasForeignKey("FinesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CarSharing.DataAccess.Entities.Reservation", null)
+                        .WithMany()
+                        .HasForeignKey("ReservationsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
