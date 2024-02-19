@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environments } from "../../environments/environments";
-import { Booking, CreateBooking } from "../models/reservation";
+import { Booking, CreateBooking, UpdateBooking } from "../models/reservation";
 
 @Injectable({
     providedIn: 'root'
@@ -22,7 +22,7 @@ export class BookingService {
         return this.http.post<number>(`${environments.apiUrl}/reservation`, booking);
     }
 
-    public updateBooking(booking: Booking): Observable<void> {
+    public updateBooking(booking: UpdateBooking): Observable<void> {
         return this.http.put<void>(`${environments.apiUrl}/reservation`, booking);
     }
 

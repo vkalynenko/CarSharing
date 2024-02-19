@@ -20,7 +20,7 @@ import { BookingsModule } from './pages/bookings/bookings.module';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/home',
+    redirectTo: '/bookings',
     pathMatch: 'full'
   }
 ];
