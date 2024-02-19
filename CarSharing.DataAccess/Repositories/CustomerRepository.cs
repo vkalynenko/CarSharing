@@ -40,7 +40,7 @@ public class CustomerRepository : ICustomerRepository
         customerToUpdate.FirstName = customer.FirstName;
         customerToUpdate.LastName = customer.LastName;
         customerToUpdate.PhoneNumber = customer.PhoneNumber;
-        //customer.IsRegular = customer.IsRegular;
+        customer.IsRegular = customer.IsRegular;
 
         await _context.SaveChangesAsync();
     }
