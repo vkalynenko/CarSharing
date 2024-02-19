@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subject, takeUntil } from 'rxjs';
-import { Booking } from '../../models/reservation';
+import { Booking, CreateBooking } from '../../models/reservation';
 import { BookingService } from '../../services/booking.service';
 import { BookingDialogComponent } from './booking-dialog/booking-dialog.component';
 
@@ -38,7 +38,7 @@ export class BookingsComponent implements OnInit {
       minWidth: '200px',
       closeOnNavigation: true,
       autoFocus: false,
-      disableClose: false,
+      disableClose: true,
       data: {
         booking: row,
         deleteBooking: this.deleteBooking.bind(this),
@@ -69,13 +69,13 @@ export class BookingsComponent implements OnInit {
     () => this.showMessage('Шось пішло не так...'));
   }
 
-  createBooking(booking: Booking): void {
-    this.bookingsService.createBooking(booking).subscribe((id: number) => {
-      booking.id = id;
-      this.bookings.push(booking);
-      this.table.renderRows();
-
-      this.showMessage('Бронювання було додано')
+  createBooking(booking: CreateBooking): void {
+    this.bookingsService.createBooking(booking).subscribe(() => {
+      this.bookingsService.getAllBookings().subscribe((bookings: Booking[]) => {
+        this.bookings = bookings;
+        this.table.renderRows();
+        this.showMessage('Бронювання було додано')
+      }, () => this.showMessage('Шось пішло не так...'));
     }, 
     () => this.showMessage('Шось пішло не так...'));
   }

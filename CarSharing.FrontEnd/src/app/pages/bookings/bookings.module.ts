@@ -14,9 +14,14 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { BookingDialogComponent } from './booking-dialog/booking-dialog.component';
 import { MatSelectModule } from '@angular/material/select';
+import {MatDatepickerModule} from '@angular/material/datepicker'
+import { MatNativeDateModule, provideNativeDateAdapter } from '@angular/material/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { WarningDialogModule } from '../warning-dialog/warning-dialog.module';
 
 @NgModule({
   imports: [
+    BrowserAnimationsModule,
     CommonModule,
     BookingsRoutingModule,
     ReactiveFormsModule,
@@ -28,8 +33,12 @@ import { MatSelectModule } from '@angular/material/select';
     MatDialogModule,
     MatIconModule,
     MatCheckboxModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    WarningDialogModule
   ],
+  providers: [provideNativeDateAdapter()],
   declarations: [BookingsComponent, BookingDialogComponent]
 })
 export class BookingsModule { }
