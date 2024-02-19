@@ -1,1 +1,54 @@
-<p>Clients</p>
+<div id="clients">
+    <h1>Clients <mat-icon>people_outline</mat-icon></h1>
+    <button
+      class="add-button"
+      color="accent"
+      (click)="addClient()"
+      mat-raised-button>
+      Add New
+    </button>
+    <table  #clientTableRef mat-table [dataSource]="clients" class="mat-elevation-z8 demo-table">
+        <!-- Id Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>No.</th>
+          <td mat-cell *matCellDef="let element">{{element.id}}</td>
+        </ng-container>
+
+        <!-- In Use Column -->
+        <ng-container matColumnDef="isRegular">
+            <th mat-header-cell *matHeaderCellDef>Постійний користувач?</th>
+            <td mat-cell *matCellDef="let element">{{element.isRegular ? 'Yes' : 'No'}}</td>
+        </ng-container>
+      
+        <!-- Name Column -->
+        <ng-container matColumnDef="firstName">
+          <th mat-header-cell *matHeaderCellDef>Ім'я</th>
+          <td mat-cell *matCellDef="let element">{{element.firstName}}</td>
+        </ng-container>
+      
+        <!-- Surname Column -->
+        <ng-container matColumnDef="lastName">
+          <th mat-header-cell *matHeaderCellDef>Прізвище</th>
+          <td mat-cell *matCellDef="let element">{{element.lastName}}</td>
+        </ng-container>
+      
+        <!-- Email Column -->
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef>Електронна Адреса</th>
+          <td mat-cell *matCellDef="let element">{{element.email}}</td>
+        </ng-container>
+    
+          <!-- Phone Column -->
+          <ng-container matColumnDef="phoneNumber">
+            <th mat-header-cell *matHeaderCellDef>Номер телефону</th>
+            <td mat-cell *matCellDef="let element">{{element.phoneNumber}}</td>
+          </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr
+            (click)="showDetails(row)"
+            mat-row
+            *matRowDef="let row; columns: displayedColumns;"
+        ></tr>
+      </table>
+</div>
