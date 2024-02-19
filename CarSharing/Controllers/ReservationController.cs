@@ -29,4 +29,11 @@ public class ReservationController : ControllerBase
         var response = await _service.GetById(id);
         return _mapper.Map<Reservation>(response);
     }
+    
+    [HttpGet("reservation")]
+    public async Task<List<Reservation>> GetAll()
+    {
+        var response = await _service.GetAll();
+        return _mapper.Map<List<Reservation>>(response);
+    }
 }
