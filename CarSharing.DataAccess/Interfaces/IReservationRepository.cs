@@ -9,4 +9,8 @@ public interface IReservationRepository
     public Task<List<Reservation>> GetAll();
 
     public Task<int> Add(CreateReservation model);
+    
+    public Task Update(UpdateReservation reservation);
+    
+    public Task DeleteById(int id);
 }

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarSharing.DataAccess.Migrations
 {
     [DbContext(typeof(CarSharingContext))]
-    [Migration("20240219180558_Initial")]
+    [Migration("20240219203639_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -137,19 +137,27 @@ namespace CarSharing.DataAccess.Migrations
                     b.ToTable("Reservations");
                 });
 
-            modelBuilder.Entity("FineReservation", b =>
+            modelBuilder.Entity("CarSharing.DataAccess.Entities.ReservationFine", b =>
                 {
-                    b.Property<int>("FinesId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("ReservationsId")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("FineId")
                         .HasColumnType("int");
 
-                    b.HasKey("FinesId", "ReservationsId");
+                    b.Property<int>("ReservationId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("ReservationsId");
+                    b.HasKey("Id");
 
-                    b.ToTable("FineReservation");
+                    b.HasIndex("FineId");
+
+                    b.HasIndex("ReservationId");
+
+                    b.ToTable("ReservationFine");
                 });
 
             modelBuilder.Entity("CarSharing.DataAccess.Entities.Reservation", b =>
@@ -171,19 +179,33 @@ namespace CarSharing.DataAccess.Migrations
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("FineReservation", b =>
+            modelBuilder.Entity("CarSharing.DataAccess.Entities.ReservationFine", b =>
                 {
-                    b.HasOne("CarSharing.DataAccess.Entities.Fine", null)
-                        .WithMany()
-                        .HasForeignKey("FinesId")
+                    b.HasOne("CarSharing.DataAccess.Entities.Fine", "Fine")
+                        .WithMany("ReservationFines")
+                        .HasForeignKey("FineId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CarSharing.DataAccess.Entities.Reservation", null)
-                        .WithMany()
-                        .HasForeignKey("ReservationsId")
+                    b.HasOne("CarSharing.DataAccess.Entities.Reservation", "Reservation")
+                        .WithMany("ReservationFines")
+                        .HasForeignKey("ReservationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Fine");
+
+                    b.Navigation("Reservation");
+                });
+
+            modelBuilder.Entity("CarSharing.DataAccess.Entities.Fine", b =>
+                {
+                    b.Navigation("ReservationFines");
+                });
+
+            modelBuilder.Entity("CarSharing.DataAccess.Entities.Reservation", b =>
+                {
+                    b.Navigation("ReservationFines");
                 });
 #pragma warning restore 612, 618
         }

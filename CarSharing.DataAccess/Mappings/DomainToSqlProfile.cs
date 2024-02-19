@@ -14,7 +14,14 @@ public class DomainToSqlProfile: Profile
         CreateMap<CarSharing.Domain.DTOs.Fine, Fine>();
         CreateMap<Fine, CarSharing.Domain.DTOs.Fine>();
         CreateMap<CarSharing.Domain.DTOs.Reservation, Reservation>();
-        CreateMap<Reservation, CarSharing.Domain.DTOs.Reservation>();
+        CreateMap<Reservation, CarSharing.Domain.DTOs.Reservation>()
+            .ForMember(dest => dest.Fines, opt => opt.MapFrom(src => src.ReservationFines.Select(x => x.Fine)));
         CreateMap<CarSharing.Domain.DTOs.CreateReservation, Reservation>();
+        
+        
+        /*
+         * CreateMap<Models.Sql.Movie, Models.Domain.Movie>()
+                .ForMember(dest => dest.Actors, opt => opt.MapFrom(src => src.ActorMovies.Select(x => x.Actor)));
+         */
     }
 }

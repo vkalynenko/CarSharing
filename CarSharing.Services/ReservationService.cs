@@ -36,17 +36,27 @@ public class ReservationService : IReservationService
         return reservations;
     }
 
+    public async Task Update(UpdateReservation reservation)
+    {
+        await _repository.Update(reservation);
+    }
+
+    public async Task DeleteById(int id)
+    {
+        await _repository.DeleteById(id);
+    }
+
     private double GetTotalSum(Reservation reservation)
     {
         var discount = reservation.Customer.IsRegular ? 0.95 : 1;
         var targetDate = reservation.ActualReturnDate ?? reservation.ExpectedReturnDate;
-        var totalDays = targetDate.Subtract(reservation.StartDate);
+        var totalDays = targetDate.Subtract(reservation.StartDate).Days + 1;
         double finesSum = 0;
         foreach (var fine in reservation.Fines)
         {
             finesSum += fine.Price;
         }
 
-        return (reservation.Car.DailyRentalPrice * totalDays.Days + finesSum) * discount;
+        return (reservation.Car.DailyRentalPrice * totalDays + finesSum) * discount;
     }
 }

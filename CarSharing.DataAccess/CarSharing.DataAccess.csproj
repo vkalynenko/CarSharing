@@ -22,7 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CarSharing.DataAccess.Abstractions\CarSharing.DataAccess.Abstractions.csproj" />
     <ProjectReference Include="..\CarSharing.Domain\CarSharing.Domain.csproj" />
   </ItemGroup>
 
