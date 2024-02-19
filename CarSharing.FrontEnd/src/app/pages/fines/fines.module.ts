@@ -7,7 +7,12 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatButtonModule } from "@angular/material/button";
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FinesComponent } from './fines.component';
-import { FinesRoutingModule } from './Fines-routing.module';
+import { FinesRoutingModule } from './fines-routing.module';
+import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
+import { FineDialogComponent } from './fine-dialog/fine-dialog.component';
 
 @NgModule({
   imports: [
@@ -17,8 +22,12 @@ import { FinesRoutingModule } from './Fines-routing.module';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatTableModule,
+    MatDialogModule,
+    MatIconModule,
+    MatCheckboxModule
   ],
-  declarations: [FinesComponent]
+  declarations: [FinesComponent, FineDialogComponent]
 })
 export class FinesModule { }

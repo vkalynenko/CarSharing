@@ -1,0 +1,20 @@
+#fines {
+    padding: 10px;
+
+    .add-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+      
+    .mat-mdc-row .mat-mdc-cell {
+        border-bottom: 1px solid transparent;
+        border-top: 1px solid transparent;
+        cursor: pointer;
+    }
+    
+    .mat-mdc-row:hover .mat-mdc-cell {
+        border-color: currentColor;
+    }
+}
