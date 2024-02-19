@@ -15,7 +15,7 @@ var configuration = builder.Configuration;
 builder.Services.RegisterDependencies(configuration);
 builder.Services.AddControllers();
 
-builder.Services.AddDbContext<CarSharingContext>(o => o.UseSqlServer("Data Source=DESKTOP-4ALQ0CF;Initial Catalog=CarSharing;Trusted_Connection=True;"));
+builder.Services.AddDbContext<CarSharingContext>(o => o.UseSqlServer("Server=localhost;Database=CarSharing;User Id=sa;Password=Strong.Pwd-123;ConnectRetryCount=0;"));
 
 builder.Services.AddScoped<ICarRepository, CarRepository>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
