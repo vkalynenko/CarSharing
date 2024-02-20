@@ -16,43 +16,43 @@
 
         <!-- In Use Column -->
         <ng-container matColumnDef="isInUse">
-            <th mat-header-cell *matHeaderCellDef>Rented?</th>
+            <th mat-header-cell *matHeaderCellDef>Орендована?</th>
             <td mat-cell *matCellDef="let element">{{element.isInUse ? 'Yes' : 'No'}}</td>
         </ng-container>
       
         <!-- Brand Column -->
         <ng-container matColumnDef="brand">
-          <th mat-header-cell *matHeaderCellDef>Brand</th>
+          <th mat-header-cell *matHeaderCellDef>Бренд</th>
           <td mat-cell *matCellDef="let element">{{element.brand}}</td>
         </ng-container>
       
         <!-- Model Column -->
         <ng-container matColumnDef="model">
-          <th mat-header-cell *matHeaderCellDef>Model</th>
+          <th mat-header-cell *matHeaderCellDef>Модель</th>
           <td mat-cell *matCellDef="let element">{{element.model}}</td>
         </ng-container>
       
         <!-- Release Column -->
         <ng-container matColumnDef="releaseYear">
-          <th mat-header-cell *matHeaderCellDef>Release Year</th>
+          <th mat-header-cell *matHeaderCellDef>Рік випуску</th>
           <td mat-cell *matCellDef="let element">{{element.releaseYear}}</td>
         </ng-container>
     
           <!-- Box Column -->
           <ng-container matColumnDef="gearBox">
-            <th mat-header-cell *matHeaderCellDef>Gear Box</th>
+            <th mat-header-cell *matHeaderCellDef>Коробка передач</th>
             <td mat-cell *matCellDef="let element">{{element.gearBox}}</td>
           </ng-container>
     
            <!-- Seats Column -->
            <ng-container matColumnDef="seatsQuantity">
-            <th mat-header-cell *matHeaderCellDef>Seats Quesntity</th>
+            <th mat-header-cell *matHeaderCellDef>Кількість місць</th>
             <td mat-cell *matCellDef="let element">{{element.seatsQuantity}}</td>
           </ng-container>
     
            <!-- Daily Rental Price Column -->
            <ng-container matColumnDef="dailyRentalPrice">
-            <th mat-header-cell *matHeaderCellDef>Daily Rental Price</th>
+            <th mat-header-cell *matHeaderCellDef>Подобова ціна за оренду</th>
             <td mat-cell *matCellDef="let element">{{element.dailyRentalPrice}}</td>
           </ng-container>
       

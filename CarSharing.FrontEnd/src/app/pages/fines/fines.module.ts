@@ -13,6 +13,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { FineDialogComponent } from './fine-dialog/fine-dialog.component';
+import { WarningDialogModule } from '../warning-dialog/warning-dialog.module';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { FineDialogComponent } from './fine-dialog/fine-dialog.component';
     MatTableModule,
     MatDialogModule,
     MatIconModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    WarningDialogModule
   ],
   declarations: [FinesComponent, FineDialogComponent]
 })

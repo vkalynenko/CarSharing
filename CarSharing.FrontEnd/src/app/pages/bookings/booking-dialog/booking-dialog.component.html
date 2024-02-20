@@ -10,49 +10,57 @@
         <div *ngIf="!booking.id" class="row">
             <form class="content-wrapper"
                 [formGroup]="form"
-                name="fineForm"
+                name="form"
                 autocomplete="off">
                 <div class="column">
-                    <mat-form-field appearance="outline">
+                    <mat-form-field appearance="outline" floatLabel="always">
                         <mat-label>
                             Машина
                         </mat-label>
-                        <mat-select *ngFor="let car of cars">
-                            <mat-option [value]="car">{{car.brand}} {{car.model}}</mat-option> 
+                        <mat-select formControlName="car">
+                            <mat-option *ngFor="let car of cars" 
+                                [value]="car">{{car?.brand}} {{car?.model}}</mat-option> 
                         </mat-select>
-                        <mat-error *ngIf="form.get('startDate')?.hasError('required')">
+                        <mat-error *ngIf="form.get('car')?.hasError('required')">
                             Поле обов'язкове для заповнення
                         </mat-error>
                     </mat-form-field>
 
-                    <mat-form-field appearance="outline">
+                    <mat-form-field appearance="outline" floatLabel="always">
                         <mat-label>
                             Клієнт
                         </mat-label>
-                        <mat-select *ngFor="let client of clients">
-                            <mat-option [value]="client">{{client.firstName}} {{client.lastName}}</mat-option> 
+                        <mat-select formControlName="customer">
+                            <mat-option *ngFor="let client of clients"  
+                                [value]="client">{{client?.firstName}} {{client?.lastName}}</mat-option> 
                         </mat-select>
-                        <mat-error *ngIf="form.get('expectedReturnDate')?.hasError('required')">
+                        <mat-error *ngIf="form.get('customer')?.hasError('required')">
                             Поле обов'язкове для заповнення
                         </mat-error>
-                    </mat-form-field>
+                    </mat-form-field> 
                 </div>
                 <div class="column">
-                    <mat-form-field appearance="outline">
+                    <mat-form-field appearance="outline" floatLabel="always">
                         <mat-label>
                             Дата початку оренди
                         </mat-label>
-                        <input type="date" required formControlName="startDate" matInput>
+                        <input [matDatepicker]="picker" required formControlName="startDate" matInput>
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
                         <mat-error *ngIf="form.get('startDate')?.hasError('required')">
                             Поле обов'язкове для заповнення
                         </mat-error>
                     </mat-form-field>
 
-                    <mat-form-field appearance="outline">
+                    <mat-form-field appearance="outline" floatLabel="always">
                         <mat-label>
                             Очікувана дата повернення
                         </mat-label>
-                        <input type="date" required formControlName="expectedReturnDate" matInput>
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <input [matDatepicker]="picker1" required formControlName="expectedReturnDate" matInput>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
                         <mat-error *ngIf="form.get('expectedReturnDate')?.hasError('required')">
                             Поле обов'язкове для заповнення
                         </mat-error>
@@ -68,74 +76,97 @@
                 name="fineForm"
                 autocomplete="off">
                 <div class="column">
-                    <mat-form-field appearance="outline">
+                    <mat-form-field appearance="outline" floatLabel="always">
                         <mat-label>
                             Машина
                         </mat-label>
-                        <mat-select *ngFor="let car of cars">
-                            <mat-option [value]="car">{{car.brand}} {{car.model}}</mat-option> 
+                        <mat-select formControlName="car" [compareWith]="compareCars">
+                            <mat-option *ngFor="let car of cars" 
+                                [value]="car">{{car.brand}} {{car.model}}</mat-option> 
                         </mat-select>
-                        <mat-error *ngIf="form.get('startDate')?.hasError('required')">
+                        <mat-error *ngIf="form.get('car')?.hasError('required')">
                             Поле обов'язкове для заповнення
                         </mat-error>
                     </mat-form-field>
 
-                    <mat-form-field appearance="outline">
+                    <mat-form-field appearance="outline" floatLabel="always">
                         <mat-label>
                             Клієнт
                         </mat-label>
-                        <mat-select *ngFor="let client of clients">
-                            <mat-option [value]="client">{{client.firstName}} {{client.lastName}}</mat-option> 
+                        <mat-select formControlName="customer" [compareWith]="compareCustomers">
+                            <mat-option *ngFor="let client of clients"  
+                                [value]="client">{{client.firstName}} {{client.lastName}}</mat-option> 
                         </mat-select>
-                        <mat-error *ngIf="form.get('expectedReturnDate')?.hasError('required')">
+                        <mat-error *ngIf="form.get('customer')?.hasError('required')">
                             Поле обов'язкове для заповнення
                         </mat-error>
-                    </mat-form-field>
+                    </mat-form-field> 
 
-                    <mat-form-field appearance="outline">
+                    <mat-form-field appearance="outline" floatLabel="always">
                         <mat-label>
                             Дата початку оренди
                         </mat-label>
-                        <input type="date" required formControlName="startDate" matInput>
+                        <input [matDatepicker]="picker" required formControlName="startDate" matInput>
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
                         <mat-error *ngIf="form.get('startDate')?.hasError('required')">
                             Поле обов'язкове для заповнення
                         </mat-error>
                     </mat-form-field>
-
                 </div>
                 <div class="column">
-                    <mat-form-field appearance="outline">
+                    <mat-form-field appearance="outline" floatLabel="always">
                         <mat-label>
                             Очікувана дата повернення
                         </mat-label>
-                        <input type="date" required formControlName="expectedReturnDate" matInput>
+                        <input [matDatepicker]="picker1" required formControlName="expectedReturnDate" matInput>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
                         <mat-error *ngIf="form.get('expectedReturnDate')?.hasError('required')">
                             Поле обов'язкове для заповнення
                         </mat-error>
                     </mat-form-field>
 
-                    <mat-form-field appearance="outline">
+                    <mat-form-field appearance="outline" floatLabel="always">
                         <mat-label>
                             Дата поверення
                         </mat-label>
-                        <input type="date" required formControlName="actualReturnDate" matInput>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                        <input [matDatepicker]="picker2" formControlName="actualReturnDate" matInput>
+                        <mat-error *ngIf="form.get('actualReturnDate')?.hasError('maxDate')">
+                            Ви не можете ставити дату повернення заздалегідь
+                        </mat-error>
                     </mat-form-field>
 
-                    <mat-form-field appearance="outline">
+                    <mat-form-field appearance="outline" floatLabel="always">
                         <mat-label>
                             Штрафи
                         </mat-label>
-                        <mat-select *ngFor="let fine of fines" multiple>
-                            <mat-option [value]="fine">{{fine.description}}: {{fine.price}}</mat-option> 
+                        <mat-select  multiple formControlName="fines">
+                            <mat-option *ngFor="let fine of fines" 
+                                [value]="fine">{{fine.description}}: {{fine.price}}</mat-option> 
                         </mat-select>
                     </mat-form-field>
                 </div>
             </form>
         </div>
+        <div *ngIf="allChosen()">
+            <p>Вартість оренди машини в день: {{form.get('car')?.value.dailyRentalPrice}}</p>
+            <p *ngIf="form.get('customer')?.value.isRegular">Знижка клієнта: -5%</p>
+            <p *ngIf="!form.get('customer')?.value.isRegular">Сума: <b>{{getTotalSum()}}</b></p>
+            <p *ngIf="form.get('customer')?.value.isRegular">Сума: <del>{{getTotalSum(false)}}</del>&nbsp;&nbsp;&nbsp; {{getTotalSum()}}</p>
+            <p *ngIf="form.get('fines')?.value.length > 0">Наявні штрафи:</p>
+            <ul *ngIf="form.get('fines')?.value.length > 0">
+                <li *ngFor="let fine of form.get('fines')?.value">{{fine.description}} {{fine.price}}.</li>
+            </ul>
+        </div>
     </mat-dialog-content>
 
     <mat-dialog-actions align="center">
         <button
+            *ngIf="!booking.actualReturnDate"
             [disabled]="form.invalid"
             color="accent"
             class="saveBtn"

@@ -85,7 +85,7 @@
             Зберегти
             </button>
         <button
-            *ngIf="car.id"
+            *ngIf="car.id && !car.isInUse"
             color="warn"
             class="saveBtn"
             (click)="onDelete()"

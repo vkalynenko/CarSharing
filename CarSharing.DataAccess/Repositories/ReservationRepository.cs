@@ -72,10 +72,11 @@ public class ReservationRepository : IReservationRepository
         reservationToUpdate.ReservationFines = reservationFines;
 
         reservationToUpdate.CustomerId = reservation.CustomerId;
+
         reservationToUpdate.StartDate = reservation.StartDate;
         reservationToUpdate.ExpectedReturnDate = reservation.ExpectedReturnDate;
         reservationToUpdate.ActualReturnDate = reservation.ActualReturnDate;
-
+        
         if (reservation.ActualReturnDate.HasValue)
         {
             var car = await _context.Cars.SingleAsync(x => x.Id == reservation.CarId);
