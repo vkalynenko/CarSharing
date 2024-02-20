@@ -48,9 +48,12 @@ public class ReservationService : IReservationService
 
     private double GetTotalSum(Reservation reservation)
     {
-        var discount = reservation.Customer.IsRegular ? 0.95 : 1;
-        var targetDate = reservation.ActualReturnDate ?? reservation.ExpectedReturnDate;
-        var totalDays = Math.Ceiling(reservation.ExpectedReturnDate.Subtract(reservation.StartDate).TotalDays);
+        double discount = (reservation.Customer.IsRegular && reservation.CreatedAt < reservation.Customer.IsRegularFrom)
+            ? 0.95
+            : 1;
+
+        var totalDays = reservation.ExpectedReturnDate.Subtract(reservation.StartDate).Days + 1;
+
         double finesSum = 0;
         foreach (var fine in reservation.Fines)
         {
@@ -59,10 +62,13 @@ public class ReservationService : IReservationService
         
         if (reservation.ActualReturnDate.HasValue)
         {
-            finesSum += Math.Ceiling(reservation.ActualReturnDate.Value.Subtract(reservation.ExpectedReturnDate).TotalDays) * reservation.Car.DailyRentalPrice * 1.05;
-            return (reservation.Car.DailyRentalPrice * totalDays + finesSum) * discount;
+            if (reservation.ActualReturnDate.Value.CompareTo(reservation.ExpectedReturnDate) < 0)
+            {
+                return (reservation.Car.DailyRentalPrice * (reservation.ActualReturnDate.Value.Subtract(reservation.StartDate).Days + 1) + finesSum) * discount;
+            }
+            
+            finesSum += (reservation.ActualReturnDate.Value.Subtract(reservation.ExpectedReturnDate).Days) * reservation.Car.DailyRentalPrice * 1.05;
         }
-
         return (reservation.Car.DailyRentalPrice * totalDays + finesSum) * discount;
     }
 }

@@ -44,6 +44,7 @@ public class ReservationRepository : IReservationRepository
     public async Task<int> Add(CreateReservation model)
     {
         var sqlModel = _mapper.Map<Entities.Reservation>(model);
+        sqlModel.CreatedAt = DateTime.Now;
         await _context.Reservations.AddAsync(sqlModel);
         var car = await _context.Cars.SingleAsync(x => x.Id == sqlModel.CarId);
         car.IsInUse = true;
@@ -81,6 +82,14 @@ public class ReservationRepository : IReservationRepository
         {
             var car = await _context.Cars.SingleAsync(x => x.Id == reservation.CarId);
             car.IsInUse = false;
+
+            var user = await _context.Customers.SingleAsync(x => x.Id == reservation.CustomerId);
+            var userReservation = await _context.Reservations.Where(x => x.Customer.Id == reservation.CustomerId).CountAsync();
+            if (userReservation >= 3)
+            {
+                user.IsRegularFrom = DateTime.Now;
+                user.IsRegular = true;
+            }
         }
 
         if (reservationToUpdate.CarId != reservation.CarId)
@@ -98,8 +107,18 @@ public class ReservationRepository : IReservationRepository
 
     public async Task DeleteById(int id)
     {
-        var reservation = await _context.Reservations.SingleAsync(x => x.Id == id);
+        var reservation = await _context.Reservations.Include(x => x.Car)
+            .Include(x => x.Customer)
+            .SingleAsync(x => x.Id == id);
         _context.Reservations.Remove(reservation);
+        reservation.Car.IsInUse = false;
+        
+        var customerReservationsCount = await _context.Reservations.Where(x => x.Customer.Id == reservation.CustomerId).CountAsync();
+        if (customerReservationsCount < 3)
+        {
+            reservation.Customer.IsRegularFrom = null;
+            reservation.Customer.IsRegular = false;
+        }
         await _context.SaveChangesAsync();
     }
 }
