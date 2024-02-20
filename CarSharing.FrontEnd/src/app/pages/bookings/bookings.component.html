@@ -47,6 +47,12 @@
         <!-- Total Sum Column -->
         <ng-container matColumnDef="totalSum">
           <th mat-header-cell *matHeaderCellDef>Сума до сплати</th>
+          <td mat-cell *matCellDef="let element">{{element.totalSum?.toFixed(2)}}</td>
+        </ng-container>
+
+        <!-- Created At Column -->
+        <ng-container matColumnDef="createdAt">
+          <th mat-header-cell *matHeaderCellDef>Створено</th>
           <td mat-cell *matCellDef="let element">{{element.totalSum}}</td>
         </ng-container>
       

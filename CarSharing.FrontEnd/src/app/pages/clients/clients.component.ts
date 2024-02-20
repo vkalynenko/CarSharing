@@ -17,7 +17,7 @@ export class ClientsComponent implements OnInit {
 
   clients: Client[] = [];
 
-  displayedColumns: string[] = ['firstName', 'lastName', 'email', 'phoneNumber', 'isRegular'];
+  displayedColumns: string[] = ['firstName', 'lastName', 'passportNumber', 'email', 'phoneNumber', 'isRegular'];
 
   unSubscribeAll = new Subject();
 

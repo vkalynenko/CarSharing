@@ -31,6 +31,16 @@
                             Поле обов'язкове для заповнення
                         </mat-error>
                     </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>
+                            Номер паспорту
+                        </mat-label>
+                        <input type="text" required formControlName="passportNumber" matInput>
+                        <mat-error *ngIf="form.get('passportNumber')?.hasError('required')">
+                            Поле обов'язкове для заповнення
+                        </mat-error>
+                    </mat-form-field>
                 </div>
                 <div class="column">
 
