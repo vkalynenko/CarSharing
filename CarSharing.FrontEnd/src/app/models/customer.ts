@@ -5,4 +5,6 @@ export class Client {
     public email!: string;
     public phoneNumber!: string;
     public isRegular!: boolean;
+    public isRegularFrom?: Date;
+    public passportNumber!: string;
 }

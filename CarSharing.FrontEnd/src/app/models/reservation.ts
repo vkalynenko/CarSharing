@@ -13,6 +13,8 @@ export class Booking {
 
     public totalSum!: number;
 
+    public createdAt!: Date;
+
     public fines: Fine[] = [];
 }
 

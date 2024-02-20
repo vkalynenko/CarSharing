@@ -181,7 +181,7 @@ export class BookingDialogComponent implements OnInit, AfterViewInit  {
         for (const fine of formValue.fines) {
             finesSum += fine.price;
         }
-        return (formValue.car.dailyRentalPrice * totalDays + finesSum) * discount;
+        return Number(((formValue.car.dailyRentalPrice * totalDays + finesSum) * discount)?.toFixed(2));
     }
     else {
         return 0;

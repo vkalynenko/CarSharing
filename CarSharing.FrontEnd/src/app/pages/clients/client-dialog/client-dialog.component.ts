@@ -28,6 +28,8 @@ export class ClientDialogComponent implements OnInit{
             lastName: [this.client.lastName, Validators.required],
             firstName: [this.client.firstName, Validators.required],
             email: [this.client.email, Validators.required],
+            passportNumber: [this.client.passportNumber, Validators.required],
+            isRegularFrom: [this.client.isRegularFrom],
             isRegular: [this.client.isRegular || false],
             phoneNumber: [this.client.phoneNumber, Validators.required]
         });
