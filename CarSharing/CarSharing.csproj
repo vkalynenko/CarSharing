@@ -9,7 +9,6 @@
   <ItemGroup>
     <ProjectReference Include="..\CarSharing.DataAccess\CarSharing.DataAccess.csproj" />
     <ProjectReference Include="..\CarSharing.Domain\CarSharing.Domain.csproj" />
-    <ProjectReference Include="..\CarSharing.Infrastructure\CarSharing.Infrastructure.csproj" />
     <ProjectReference Include="..\CarSharing.Services.Abstractions\CarSharing.Services.Abstractions.csproj" />
     <ProjectReference Include="..\CarSharing.Services\CarSharing.Services.csproj" />
   </ItemGroup>

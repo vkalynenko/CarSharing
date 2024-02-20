@@ -50,11 +50,17 @@ public class ReservationService : IReservationService
     {
         var discount = reservation.Customer.IsRegular ? 0.95 : 1;
         var targetDate = reservation.ActualReturnDate ?? reservation.ExpectedReturnDate;
-        var totalDays = targetDate.Subtract(reservation.StartDate).Days + 1;
+        var totalDays = Math.Ceiling(reservation.ExpectedReturnDate.Subtract(reservation.StartDate).TotalDays);
         double finesSum = 0;
         foreach (var fine in reservation.Fines)
         {
             finesSum += fine.Price;
+        }
+        
+        if (reservation.ActualReturnDate.HasValue)
+        {
+            finesSum += Math.Ceiling(reservation.ActualReturnDate.Value.Subtract(reservation.ExpectedReturnDate).TotalDays) * reservation.Car.DailyRentalPrice * 1.05;
+            return (reservation.Car.DailyRentalPrice * totalDays + finesSum) * discount;
         }
 
         return (reservation.Car.DailyRentalPrice * totalDays + finesSum) * discount;

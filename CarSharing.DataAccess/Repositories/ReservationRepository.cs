@@ -72,10 +72,26 @@ public class ReservationRepository : IReservationRepository
         reservationToUpdate.ReservationFines = reservationFines;
 
         reservationToUpdate.CustomerId = reservation.CustomerId;
-        reservationToUpdate.CarId = reservation.CarId;
+
         reservationToUpdate.StartDate = reservation.StartDate;
         reservationToUpdate.ExpectedReturnDate = reservation.ExpectedReturnDate;
         reservationToUpdate.ActualReturnDate = reservation.ActualReturnDate;
+        
+        if (reservation.ActualReturnDate.HasValue)
+        {
+            var car = await _context.Cars.SingleAsync(x => x.Id == reservation.CarId);
+            car.IsInUse = false;
+        }
+
+        if (reservationToUpdate.CarId != reservation.CarId)
+        {
+            var oldCar = await _context.Cars.SingleAsync(x => x.Id == reservationToUpdate.CarId);
+            var newCar = await _context.Cars.SingleAsync(x => x.Id == reservation.CarId);
+
+            oldCar.IsInUse = false;
+            newCar.IsInUse = true;
+            reservationToUpdate.CarId = reservation.CarId;
+        }
 
         await _context.SaveChangesAsync();
     }

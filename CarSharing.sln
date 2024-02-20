@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarSharing.Services", "CarS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarSharing.Services.Abstractions", "CarSharing.Services.Abstractions\CarSharing.Services.Abstractions.csproj", "{021E9AB2-0A3D-425F-8D53-A26C6028B032}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarSharing.Infrastructure", "CarSharing.Infrastructure\CarSharing.Infrastructure.csproj", "{CE3A8802-2FA4-4A4E-81A2-F68B80A952C7}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarSharing", "CarSharing\CarSharing.csproj", "{2AC04180-E95E-44F3-8241-266712EDB1D0}"
 EndProject
 Global
@@ -37,10 +35,6 @@ Global
 		{021E9AB2-0A3D-425F-8D53-A26C6028B032}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{021E9AB2-0A3D-425F-8D53-A26C6028B032}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{021E9AB2-0A3D-425F-8D53-A26C6028B032}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CE3A8802-2FA4-4A4E-81A2-F68B80A952C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CE3A8802-2FA4-4A4E-81A2-F68B80A952C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CE3A8802-2FA4-4A4E-81A2-F68B80A952C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CE3A8802-2FA4-4A4E-81A2-F68B80A952C7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2AC04180-E95E-44F3-8241-266712EDB1D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2AC04180-E95E-44F3-8241-266712EDB1D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2AC04180-E95E-44F3-8241-266712EDB1D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
