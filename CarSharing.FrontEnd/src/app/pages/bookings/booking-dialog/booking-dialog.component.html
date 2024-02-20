@@ -51,6 +51,12 @@
                         <mat-error *ngIf="form.get('startDate')?.hasError('required')">
                             Поле обов'язкове для заповнення
                         </mat-error>
+                        <mat-error *ngIf="form.get('startDate')?.hasError('biggerThanExpected')">
+                            Дата початку не може бути більша за очікувану дату повернення
+                        </mat-error>
+                        <mat-error *ngIf="form.get('startDate')?.hasError('biggerThanActual')">
+                            Дата початку не може бути більша за дату повернення
+                        </mat-error>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" floatLabel="always">
@@ -63,6 +69,9 @@
                         <mat-datepicker #picker1></mat-datepicker>
                         <mat-error *ngIf="form.get('expectedReturnDate')?.hasError('required')">
                             Поле обов'язкове для заповнення
+                        </mat-error>
+                        <mat-error *ngIf="form.get('expectedReturnDate')?.hasError('lessThanStart')">
+                            Поле не може бути меншим за дату початку оренди
                         </mat-error>
                     </mat-form-field>
                 </div>
@@ -113,6 +122,12 @@
                         <mat-error *ngIf="form.get('startDate')?.hasError('required')">
                             Поле обов'язкове для заповнення
                         </mat-error>
+                        <mat-error *ngIf="form.get('startDate')?.hasError('biggerThanExpected')">
+                            Дата початку не може бути більша за очікувану дату повернення
+                        </mat-error>
+                        <mat-error *ngIf="form.get('startDate')?.hasError('biggerThanActual')">
+                            Дата початку не може бути більша за дату повернення
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="column">
@@ -126,6 +141,9 @@
                         <mat-error *ngIf="form.get('expectedReturnDate')?.hasError('required')">
                             Поле обов'язкове для заповнення
                         </mat-error>
+                        <mat-error *ngIf="form.get('expectedReturnDate')?.hasError('lessThanStart')">
+                            Поле не може бути меншим за дату початку оренди
+                        </mat-error>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" floatLabel="always">
@@ -138,13 +156,16 @@
                         <mat-error *ngIf="form.get('actualReturnDate')?.hasError('maxDate')">
                             Ви не можете ставити дату повернення заздалегідь
                         </mat-error>
+                        <mat-error *ngIf="form.get('actualReturnDate')?.hasError('lessThanStart')">
+                            Ви не можете ставити дату повернення меншу за дату початку оренди
+                        </mat-error>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" floatLabel="always">
                         <mat-label>
                             Штрафи
                         </mat-label>
-                        <mat-select  multiple formControlName="fines">
+                        <mat-select multiple formControlName="fines" [compareWith]="compareFines">
                             <mat-option *ngFor="let fine of fines" 
                                 [value]="fine">{{fine.description}}: {{fine.price}}</mat-option> 
                         </mat-select>
@@ -155,12 +176,12 @@
         <div *ngIf="allChosen()">
             <p>Вартість оренди машини в день: {{form.get('car')?.value.dailyRentalPrice}}</p>
             <p *ngIf="form.get('customer')?.value.isRegular">Знижка клієнта: -5%</p>
-            <p *ngIf="!form.get('customer')?.value.isRegular">Сума: <b>{{getTotalSum()}}</b></p>
-            <p *ngIf="form.get('customer')?.value.isRegular">Сума: <del>{{getTotalSum(false)}}</del>&nbsp;&nbsp;&nbsp; {{getTotalSum()}}</p>
             <p *ngIf="form.get('fines')?.value.length > 0">Наявні штрафи:</p>
             <ul *ngIf="form.get('fines')?.value.length > 0">
                 <li *ngFor="let fine of form.get('fines')?.value">{{fine.description}} {{fine.price}}.</li>
             </ul>
+            <p *ngIf="!form.get('customer')?.value.isRegular">Сума: <b>{{getTotalSum()}}</b></p>
+            <p *ngIf="form.get('customer')?.value.isRegular">Сума: <del>{{getTotalSum(false)}}</del>&nbsp;&nbsp;&nbsp; {{getTotalSum()}}</p>
         </div>
     </mat-dialog-content>
 

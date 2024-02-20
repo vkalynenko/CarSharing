@@ -48,14 +48,6 @@ public class ReservationRepository : IReservationRepository
         await _context.Reservations.AddAsync(sqlModel);
         var car = await _context.Cars.SingleAsync(x => x.Id == sqlModel.CarId);
         car.IsInUse = true;
-        var user = await _context.Customers.SingleAsync(x => x.Id == sqlModel.CustomerId);
-        var userReservation = await _context.Reservations.Where(x => x.Customer.Id == sqlModel.CustomerId).CountAsync();
-
-        // customer is regular if has >=3 reservations. Checking for >= 2 because new cureent reservation is not saved to db yet.
-        if (userReservation >= 2)
-        {
-            user.IsRegular = true;
-        }
 
         await _context.SaveChangesAsync();
         return sqlModel.Id;
@@ -82,7 +74,6 @@ public class ReservationRepository : IReservationRepository
         {
             var car = await _context.Cars.SingleAsync(x => x.Id == reservation.CarId);
             car.IsInUse = false;
-
             var user = await _context.Customers.SingleAsync(x => x.Id == reservation.CustomerId);
             var userReservation = await _context.Reservations.Where(x => x.Customer.Id == reservation.CustomerId).CountAsync();
             if (userReservation >= 3)
