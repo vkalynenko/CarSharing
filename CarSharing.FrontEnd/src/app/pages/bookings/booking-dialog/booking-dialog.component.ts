@@ -10,7 +10,7 @@ import { Fine } from "../../../models/fine";
 import { FineService } from "../../../services/fine.service";
 import moment from "moment";
 import { WarningDialogComponent } from "../../warning-dialog/warning-dialog.component";
-import { maxDateValidator } from "./custom-validators/date-validators";
+import { actualDateStartDateValidator, expectedDateStartDateValidator, maxDateValidator, startDateExpectedDateValidator, startDateReturnDateValidator } from "./custom-validators/date-validators";
 
 @Component({
     templateUrl: 'booking-dialog.component.html',
@@ -23,16 +23,16 @@ export class BookingDialogComponent implements OnInit, AfterViewInit  {
     clients: Client[] = [];
     fines: Fine[] = [];
 
-    compareCars(c1: Car, c2: Car) {
-        if(c1.id == c2.id)
-            return true; 
-        else return false
+    compareCars(c1: Car, c2: Car): boolean {
+        return c1.id == c2.id;
     }
 
-    compareCustomers(c1: Client, c2: Client) {
-        if(c1.id == c2.id)
-            return true; 
-        else return false
+    compareCustomers(c1: Client, c2: Client): boolean {
+        return c1.id == c2.id;
+    }
+
+    compareFines(f1: Fine, f2: Fine): boolean {
+        return f1.id == f2.id;
     }
 
     constructor(@Inject(MAT_DIALOG_DATA) public data: any,
@@ -59,6 +59,10 @@ export class BookingDialogComponent implements OnInit, AfterViewInit  {
         if (this.booking.id) {
             this.finesService.getAllFines().subscribe((fines: Fine[]) => this.fines = fines);
         }
+
+        if (this.booking.id && this.booking.actualReturnDate) {
+            this.form.disable();
+        }
     }
 
     ngAfterViewInit() {
@@ -68,10 +72,13 @@ export class BookingDialogComponent implements OnInit, AfterViewInit  {
     private createForm(): FormGroup {
         return this._fb.group({
             id: [this.booking.id || 0],
-            startDate: [this.booking.startDate, Validators.required],
-            expectedReturnDate: [this.booking.expectedReturnDate, Validators.required],
-            actualReturnDate: [this.booking.actualReturnDate, maxDateValidator()],
-            customer: [this.booking.customer, Validators.required],
+            startDate: [this.booking.startDate, [Validators.required, 
+                startDateExpectedDateValidator(), startDateReturnDateValidator()]],
+            expectedReturnDate: [this.booking.expectedReturnDate, 
+                [Validators.required, expectedDateStartDateValidator()]],
+            actualReturnDate: [this.booking.actualReturnDate, 
+               [maxDateValidator(), actualDateStartDateValidator()]],
+            customer: [this.booking.customer, [Validators.required]],
             car: [this.booking.car, Validators.required],
             totalSum: [this.booking.totalSum],
 
