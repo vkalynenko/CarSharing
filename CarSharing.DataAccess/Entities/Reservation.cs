@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+
 namespace CarSharing.DataAccess.Entities;
 
 public class Reservation
@@ -13,6 +15,8 @@ public class Reservation
     public int CarId { get; set; }
 
     public int CustomerId { get; set; }
+
+    public DateTime CreatedAt { get; set; } // datetime.now
 
     public Car Car { get; set; }
 

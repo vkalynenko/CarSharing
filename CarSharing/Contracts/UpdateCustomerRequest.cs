@@ -13,4 +13,6 @@ public class UpdateCustomerRequest
     public string PhoneNumber { get; set; }
     
     public bool IsRegular { get; set; }
+    
+    public string PassportNumber { get; set; }
 }
