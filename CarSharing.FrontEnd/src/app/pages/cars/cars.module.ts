@@ -13,6 +13,7 @@ import { CarDialogComponent } from './car-dialog/car-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { WarningDialogModule } from '../warning-dialog/warning-dialog.module';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatTableModule,
     MatDialogModule,
     MatIconModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    WarningDialogModule
   ],
   declarations: [CarsComponent, CarDialogComponent]
 })

@@ -2,7 +2,8 @@ import { Component, Inject, OnInit } from "@angular/core";
 import * as dialog from '@angular/material/dialog';
 import { Car } from "../../../models/car";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { MatDialogRef } from "@angular/material/dialog";
+import { MatDialog, MatDialogRef } from "@angular/material/dialog";
+import { WarningDialogComponent } from "../../warning-dialog/warning-dialog.component";
 
 @Component({
     templateUrl: './car-dialog.component.html',
@@ -14,6 +15,7 @@ export class CarDialogComponent implements OnInit {
 
     constructor(@Inject(dialog.MAT_DIALOG_DATA) public data: any,
         private _matDialogRef: MatDialogRef<CarDialogComponent>,
+        private _matDialog: MatDialog,
         private _fb: FormBuilder) {}
 
     ngOnInit(): void {
@@ -54,7 +56,16 @@ export class CarDialogComponent implements OnInit {
    }
 
    onDelete(): void {
-    this.data.deleteCar(this.car.id);
-    this._matDialogRef.close();
+    const dialogRef = this._matDialog.open(WarningDialogComponent, {
+        disableClose: true,
+        width: '400px'
+    });
+    dialogRef.componentInstance.message = 'Ви впевнені, що хочете видалити машину? Після підтвердження відмінити цю дію буде неможливо.'; 
+    dialogRef.afterClosed().subscribe((res: boolean) => {
+        if (res) {
+            this.data.deleteCar(this.car.id);
+            this._matDialogRef.close();
+        }
+    })
    }
 }
