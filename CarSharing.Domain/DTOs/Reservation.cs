@@ -15,6 +15,8 @@ public class Reservation
     public Customer Customer { get; set; }
 
     public List<Fine> Fines { get; set; }
-    
+
     public double TotalSum { get; set; }
+    
+    public DateTime CreatedAt { get; set; }
 }

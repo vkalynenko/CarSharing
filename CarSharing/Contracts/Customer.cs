@@ -13,4 +13,8 @@ public class Customer
     public string PhoneNumber { get; set; }
 
     public bool IsRegular { get; set; }
+    
+    public DateTime? IsRegularFrom { get; set; }
+
+    public string PassportNumber { get; set; }
 }
