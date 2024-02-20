@@ -48,7 +48,7 @@ public class ReservationService : IReservationService
 
     private double GetTotalSum(Reservation reservation)
     {
-        var discount = reservation.Customer.IsRegular ? 0.95 : 1;
+        var discount = (reservation.Customer.IsRegular && reservation.CreatedAt >= reservation.Customer.IsRegularFrom) ? 0.95 : 1;
         var totalDays = reservation.ExpectedReturnDate.Subtract(reservation.StartDate).Days + 1;
         double finesSum = 0;
         foreach (var fine in reservation.Fines)

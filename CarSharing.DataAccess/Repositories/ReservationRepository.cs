@@ -76,7 +76,7 @@ public class ReservationRepository : IReservationRepository
             car.IsInUse = false;
             var user = await _context.Customers.SingleAsync(x => x.Id == reservation.CustomerId);
             var userReservation = await _context.Reservations.Where(x => x.Customer.Id == reservation.CustomerId).CountAsync();
-            if (userReservation >= 3)
+            if (userReservation >= 3 && !user.IsRegular)
             {
                 user.IsRegularFrom = DateTime.Now;
                 user.IsRegular = true;
@@ -103,12 +103,18 @@ public class ReservationRepository : IReservationRepository
             .SingleAsync(x => x.Id == id);
         _context.Reservations.Remove(reservation);
         reservation.Car.IsInUse = false;
-        
-        var customerReservationsCount = await _context.Reservations.Where(x => x.Customer.Id == reservation.CustomerId).CountAsync();
+        await _context.SaveChangesAsync();
+        await UpdateCustomer(reservation.CustomerId);
+    }
+
+    private async Task UpdateCustomer(int customerId)
+    {
+        var customerReservationsCount = await _context.Reservations.Where(x => x.Customer.Id == customerId).CountAsync();
+        var customer = await _context.Customers.SingleAsync(x => x.Id == customerId);
         if (customerReservationsCount < 3)
         {
-            reservation.Customer.IsRegularFrom = null;
-            reservation.Customer.IsRegular = false;
+            customer.IsRegularFrom = null;
+            customer.IsRegular = false;
         }
         await _context.SaveChangesAsync();
     }
