@@ -174,8 +174,7 @@ export class BookingDialogComponent implements OnInit, AfterViewInit  {
    getTotalSum(applyDiscount: boolean = true): number {
     const reservation = this.form.value;
     if (this.allChosen()) {
-            const discount = reservation.customer.isRegular && 
-                (this.booking.createdAt >= reservation.customer.isRegularForm) && applyDiscount ? 0.95 : 1;
+            const discount = this.customerHasDiscount() && applyDiscount ? 0.95 : 1;
             const totalDays = 
                 Math.ceil((new Date(reservation.expectedReturnDate).getTime() - new Date(reservation.startDate).getTime()) / (1000 * 60 * 60 * 24)) + 1;
            
@@ -249,5 +248,12 @@ export class BookingDialogComponent implements OnInit, AfterViewInit  {
     const formValue = this.form.value;
     return formValue.customer && formValue.car 
         && formValue.startDate && formValue.expectedReturnDate
+   }
+
+   customerHasDiscount(): boolean {
+    const reservation = this.form.value;
+    if (reservation.customer.isRegular && !this.booking.id) return true;
+    return reservation.customer.isRegular && 
+                (new Date(this.booking.createdAt) >= new Date(reservation.customer.isRegularFrom));
    }
 }

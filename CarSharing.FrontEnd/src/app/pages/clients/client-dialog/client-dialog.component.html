@@ -52,6 +52,9 @@
                         <mat-error *ngIf="form.get('email')?.hasError('required')">
                             Поле обов'язкове для заповнення
                         </mat-error>
+                        <mat-error *ngIf="form.get('email')?.hasError('email')">
+                            Неправильна пошта
+                        </mat-error>
                     </mat-form-field>
            
                     <mat-form-field appearance="outline">
