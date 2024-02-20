@@ -1,7 +1,8 @@
 import { Component, Inject, OnInit } from "@angular/core";
 import { Client } from "../../../models/customer";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from "@angular/material/dialog";
+import { WarningDialogComponent } from "../../warning-dialog/warning-dialog.component";
 
 @Component({
     templateUrl: 'client-dialog.component.html',
@@ -12,6 +13,7 @@ export class ClientDialogComponent implements OnInit{
     form: FormGroup = this._fb.group({});
 
     constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+        private _matDialog: MatDialog,
         private _matDialogRef: MatDialogRef<ClientDialogComponent>,
         private _fb: FormBuilder) {}
 
@@ -51,7 +53,16 @@ export class ClientDialogComponent implements OnInit{
    }
 
    onDelete(): void {
-    this.data.deleteClient(this.client.id);
-    this._matDialogRef.close();
+    const dialogRef = this._matDialog.open(WarningDialogComponent, {
+        disableClose: true,
+        width: '400px'
+    });
+    dialogRef.componentInstance.message = 'Ви впевнені, що хочете видалити клієнта? Після підтвердження відмінити цю дію буде неможливо.'; 
+    dialogRef.afterClosed().subscribe((res: boolean) => {
+        if (res) {
+            this.data.deleteClient(this.client.id);
+            this._matDialogRef.close();
+        }
+    })
    }
 }

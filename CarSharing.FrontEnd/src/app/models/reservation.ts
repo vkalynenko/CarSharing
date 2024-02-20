@@ -25,6 +25,7 @@ export class CreateBooking {
 }
 
 export class UpdateBooking extends CreateBooking{
+    public id: number = 0;
     public actualReturnDate!: string;
     public fineIds: number[] = [];
 }

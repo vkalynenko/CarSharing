@@ -9,8 +9,8 @@ import { Client } from "../../../models/customer";
 import { Fine } from "../../../models/fine";
 import { FineService } from "../../../services/fine.service";
 import moment from "moment";
-import { WarningDialogModule } from "../../warning-dialog/warning-dialog.module";
 import { WarningDialogComponent } from "../../warning-dialog/warning-dialog.component";
+import { maxDateValidator } from "./custom-validators/date-validators";
 
 @Component({
     templateUrl: 'booking-dialog.component.html',
@@ -70,7 +70,7 @@ export class BookingDialogComponent implements OnInit, AfterViewInit  {
             id: [this.booking.id || 0],
             startDate: [this.booking.startDate, Validators.required],
             expectedReturnDate: [this.booking.expectedReturnDate, Validators.required],
-            actualReturnDate: [this.booking.actualReturnDate],
+            actualReturnDate: [this.booking.actualReturnDate, maxDateValidator()],
             customer: [this.booking.customer, Validators.required],
             car: [this.booking.car, Validators.required],
             totalSum: [this.booking.totalSum],
@@ -127,6 +127,7 @@ export class BookingDialogComponent implements OnInit, AfterViewInit  {
    createBookingForUpdate(addFines: boolean = true): UpdateBooking {
     const formValue = this.form.value as Booking;  
     const booking: UpdateBooking = {
+        id: formValue.id,
         customerId: formValue.customer.id,
         carId: formValue.car.id,
         expectedReturnDate: moment(formValue.expectedReturnDate).format('YYYY-MM-DD'),
@@ -150,8 +151,17 @@ export class BookingDialogComponent implements OnInit, AfterViewInit  {
    }
 
    onDelete(): void {
-    this.data.deleteBooking(this.booking.id);
-    this._matDialogRef.close();
+    const dialogRef = this._matDialog.open(WarningDialogComponent, {
+        disableClose: true,
+        width: '400px'
+    });
+    dialogRef.componentInstance.message = 'Ви впевнені, що хочете видалити бронювання? Після підтвердження відмінити цю дію буде неможливо.'; 
+    dialogRef.afterClosed().subscribe((res: boolean) => {
+        if (res) {
+            this.data.deleteBooking(this.booking.id);
+            this._matDialogRef.close();
+        }
+    })
    }
 
    getTotalSum(applyDiscount: boolean = true): number {
@@ -162,7 +172,6 @@ export class BookingDialogComponent implements OnInit, AfterViewInit  {
         const totalDays = Math.ceil((new Date(targetDate).getTime() - new Date(formValue.startDate).getTime()) / (1000 * 60 * 60 * 24)) + 1;
         let finesSum = 0;
         for (const fine of formValue.fines) {
-            console.log(fine)
             finesSum += fine.price;
         }
         return (formValue.car.dailyRentalPrice * totalDays + finesSum) * discount;

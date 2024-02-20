@@ -135,6 +135,9 @@
                         <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
                         <mat-datepicker #picker2></mat-datepicker>
                         <input [matDatepicker]="picker2" formControlName="actualReturnDate" matInput>
+                        <mat-error *ngIf="form.get('actualReturnDate')?.hasError('maxDate')">
+                            Ви не можете ставити дату повернення заздалегідь
+                        </mat-error>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" floatLabel="always">
@@ -163,6 +166,7 @@
 
     <mat-dialog-actions align="center">
         <button
+            *ngIf="!booking.actualReturnDate"
             [disabled]="form.invalid"
             color="accent"
             class="saveBtn"

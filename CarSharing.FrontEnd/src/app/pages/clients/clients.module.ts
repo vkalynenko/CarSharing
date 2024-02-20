@@ -13,6 +13,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { ClientDialogComponent } from './client-dialog/client-dialog.component';
+import { WarningDialogModule } from '../warning-dialog/warning-dialog.module';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { ClientDialogComponent } from './client-dialog/client-dialog.component';
     MatTableModule,
     MatDialogModule,
     MatIconModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    WarningDialogModule
   ],
   declarations: [ClientsComponent, ClientDialogComponent]
 })
