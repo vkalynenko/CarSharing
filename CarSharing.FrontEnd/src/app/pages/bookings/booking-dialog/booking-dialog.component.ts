@@ -172,20 +172,77 @@ export class BookingDialogComponent implements OnInit, AfterViewInit  {
    }
 
    getTotalSum(applyDiscount: boolean = true): number {
-    const formValue = this.form.value;
+    const reservation = this.form.value;
     if (this.allChosen()) {
-            const discount = formValue.customer.isRegular && applyDiscount ? 0.95 : 1;
-        const targetDate = formValue.actualReturnDate ?? formValue.expectedReturnDate;
-        const totalDays = Math.ceil((new Date(targetDate).getTime() - new Date(formValue.startDate).getTime()) / (1000 * 60 * 60 * 24)) + 1;
-        let finesSum = 0;
-        for (const fine of formValue.fines) {
-            finesSum += fine.price;
-        }
-        return Number(((formValue.car.dailyRentalPrice * totalDays + finesSum) * discount)?.toFixed(2));
+            const discount = reservation.customer.isRegular && 
+                (this.booking.createdAt >= reservation.customer.isRegularForm) && applyDiscount ? 0.95 : 1;
+            const totalDays = 
+                Math.ceil((new Date(reservation.expectedReturnDate).getTime() - new Date(reservation.startDate).getTime()) / (1000 * 60 * 60 * 24)) + 1;
+           
+            let finesSum = 0;
+        
+            for (const fine of reservation.fines) {
+                finesSum += fine.price;
+            }
+        
+            if (reservation.actualReturnDate) {
+                if (new Date(reservation.actualReturnDate) < new Date(reservation.expectedReturnDate)) {
+                    const actualDays = 
+                        Math.ceil((new Date(reservation.actualReturnDate).getTime() - new Date(reservation.startDate).getTime()) / (1000 * 60 * 60 * 24)) + 1;
+                        return Number(((reservation.car.dailyRentalPrice * actualDays + finesSum) * discount).toFixed(2));
+                } else {
+                    const extraDays = Math.max(
+                        0,
+                        Math.ceil((new Date(reservation.actualReturnDate).getTime() - new Date(reservation.expectedReturnDate).getTime()) / (1000 * 60 * 60 * 24))
+                    );
+                    finesSum += extraDays * reservation.car.dailyRentalPrice * 1.05;
+                }
+            }
+        
+        return Number(((reservation.car.dailyRentalPrice * totalDays + finesSum) * discount).toFixed(2));
     }
     else {
         return 0;
     } 
+   }
+
+   getOverdueDays(): number {
+    if (this.allChosen()){
+        const formValue = this.form.value;
+        const differenceMs = new Date(formValue.expectedReturnDate).getTime() - new Date(formValue.actualReturnDate).getTime();
+        const differenceDays = Math.ceil(differenceMs / (1000 * 60 * 60 * 24));
+    
+        if (differenceDays < 0) {
+            return Math.abs(differenceDays);
+        }
+    }
+    return 0;
+   }
+
+   hasOverDue(): boolean {
+    if (this.allChosen()){
+        const formValue = this.form.value;
+        const differenceMs = new Date(formValue.expectedReturnDate).getTime() - new Date(formValue.actualReturnDate).getTime();
+        const differenceDays = Math.ceil(differenceMs / (1000 * 60 * 60 * 24));
+
+        if (differenceDays < 0) {
+            return true;
+        }
+    }
+    return false;
+   }
+
+   getCountOfFineForOverdueDays(): number {
+    if (this.allChosen()){
+        const formValue = this.form.value;
+        const differenceMs = new Date(formValue.expectedReturnDate).getTime() - new Date(formValue.actualReturnDate).getTime();
+        const differenceDays = Math.ceil(differenceMs / (1000 * 60 * 60 * 24));
+    
+        if (differenceDays < 0) {
+            return Math.abs(differenceDays * formValue.car.dailyRentalPrice * 1.05);
+        }
+    }
+    return 0;
    }
 
    allChosen(): boolean {
