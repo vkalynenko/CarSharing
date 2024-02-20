@@ -20,6 +20,9 @@
                         <mat-error *ngIf="form.get('firstName')?.hasError('required')">
                             Поле обов'язкове для заповнення
                         </mat-error>
+                        <mat-error *ngIf="form.get('firstName')?.hasError('pattern')">
+                            Поле не має містити інших символів, окрім літер
+                        </mat-error>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline">
@@ -30,6 +33,9 @@
                         <mat-error *ngIf="form.get('lastName')?.hasError('required')">
                             Поле обов'язкове для заповнення
                         </mat-error>
+                        <mat-error *ngIf="form.get('lastName')?.hasError('pattern')">
+                            Поле не має містити інших символів, окрім літер
+                        </mat-error>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline">
@@ -39,6 +45,9 @@
                         <input type="text" required formControlName="passportNumber" matInput>
                         <mat-error *ngIf="form.get('passportNumber')?.hasError('required')">
                             Поле обов'язкове для заповнення
+                        </mat-error>
+                        <mat-error *ngIf="form.get('passportNumber')?.hasError('minLength')">
+                            Поле має містити мінімум 5 цифр
                         </mat-error>
                     </mat-form-field>
                 </div>
@@ -64,6 +73,9 @@
                         <input type="text" required formControlName="phoneNumber" matInput>
                         <mat-error *ngIf="form.get('phoneNumber')?.hasError('required')">
                             Поле обов'язкове для заповнення
+                        </mat-error>
+                        <mat-error *ngIf="form.get('phoneNumber')?.hasError('minLength')">
+                            Поле має містити мінімум 10 цифр
                         </mat-error>
                     </mat-form-field>
                 </div>

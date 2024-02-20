@@ -26,13 +26,13 @@ export class CarDialogComponent implements OnInit {
     private createForm(): FormGroup {
         return this._fb.group({
             id: [this.car.id],
-            model: [this.car.model, Validators.required],
-            brand: [this.car.brand, Validators.required],
-            releaseYear: [this.car.releaseYear, Validators.required],
+            model: [this.car.model, [Validators.required]],
+            brand: [this.car.brand, [Validators.required, Validators.pattern('/^[a-zA-Z]+$/')]],
+            releaseYear: [this.car.releaseYear, [Validators.required, Validators.min(1900), Validators.max(2024)]],
             isInUse: [this.car.isInUse || false],
-            gearBox: [this.car.gearBox, Validators.required],
+            gearBox: [this.car.gearBox, [Validators.required, Validators.pattern('/^[a-zA-Z]+$/')]],
             seatsQuantity: [this.car.seatsQuantity, [Validators.required, Validators.min(1)]],
-            dailyRentalPrice: [this.car.dailyRentalPrice, [Validators.required]]
+            dailyRentalPrice: [this.car.dailyRentalPrice, [Validators.required, Validators.min(1)]]
         });
     }
 

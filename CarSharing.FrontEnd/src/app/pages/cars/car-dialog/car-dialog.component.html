@@ -20,6 +20,9 @@
                         <mat-error *ngIf="form.get('brand')?.hasError('required')">
                             Поле обов'язкове для заповнення
                         </mat-error>
+                        <mat-error *ngIf="form.get('brand')?.hasError('pattern')">
+                            Поле не має містити інших символів, окрім літер
+                        </mat-error>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline">
@@ -40,6 +43,10 @@
                         <mat-error *ngIf="form.get('releaseYear')?.hasError('required')">
                             Поле обов'язкове для заповнення
                         </mat-error>
+                        <mat-error *ngIf="form.get('releaseYear')?.hasError('min') || 
+                            form.get('releaseYear')?.hasError('max')">
+                            Недопустимий рік
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div class="column">
@@ -51,6 +58,9 @@
                         <mat-error *ngIf="form.get('gearBox')?.hasError('required')">
                             Поле обов'язкове для заповнення
                         </mat-error>
+                        <mat-error *ngIf="form.get('gearBox')?.hasError('pattern')">
+                            Поле не має містити інших символів, окрім літер
+                        </mat-error>
                     </mat-form-field>
                     <mat-form-field appearance="outline">
                         <mat-label>
@@ -60,6 +70,9 @@
                         <mat-error *ngIf="form.get('seatsQuantity')?.hasError('required')">
                             Поле обов'язкове для заповнення
                         </mat-error>
+                        <mat-error *ngIf="form.get('seatsQuantity')?.hasError('min')">
+                            Мінімальне значення 1
+                        </mat-error>
                     </mat-form-field>
                     <mat-form-field appearance="outline">
                         <mat-label>
@@ -68,6 +81,9 @@
                         <input type="number" required formControlName="dailyRentalPrice" matInput>
                         <mat-error *ngIf="form.get('dailyRentalPrice')?.hasError('required')">
                             Поле обов'язкове для заповнення
+                        </mat-error>
+                        <mat-error *ngIf="form.get('dailyRentalPrice')?.hasError('min')">
+                            Мінімальне значення 1
                         </mat-error>
                     </mat-form-field>
                 </div>

@@ -26,7 +26,7 @@ export class FineDialogComponent implements OnInit{
         return this._fb.group({
             id: [this.fine.id || 0],
             description: [this.fine.description, Validators.required],
-            price: [this.fine.price, Validators.required]
+            price: [this.fine.price, [Validators.required, Validators.min(1)]]
         });
     }
 

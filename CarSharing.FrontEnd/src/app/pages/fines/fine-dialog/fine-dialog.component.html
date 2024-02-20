@@ -18,7 +18,6 @@
                         </mat-label>
                         <textarea
                             formControlName="description" matInput></textarea>
-                        <!-- <input type="text" required formControlName="description" matInput> -->
                         <mat-error *ngIf="form.get('description')?.hasError('required')">
                             Поле обов'язкове для заповнення
                         </mat-error>
@@ -31,6 +30,9 @@
                         <input type="number" required formControlName="price" matInput>
                         <mat-error *ngIf="form.get('price')?.hasError('required')">
                             Поле обов'язкове для заповнення
+                        </mat-error>
+                        <mat-error *ngIf="form.get('price')?.hasError('min')">
+                            Поле повинно бути більше нуля
                         </mat-error>
                     </mat-form-field>
                 </div>
