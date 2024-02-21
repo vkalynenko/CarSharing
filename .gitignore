@@ -328,3 +328,5 @@ ASALocalRun/
 *.DotSettings
 wwwroot
 /src/Dataloop.GKD/appsettings.Development.json
+/CarSharing/Program.cs
+/CarSharing.FrontEnd/angular.json

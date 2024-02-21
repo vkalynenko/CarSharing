@@ -27,10 +27,10 @@ export class CarDialogComponent implements OnInit {
         return this._fb.group({
             id: [this.car.id],
             model: [this.car.model, [Validators.required]],
-            brand: [this.car.brand, [Validators.required, Validators.pattern('/^[a-zA-Z]+$/')]],
+            brand: [this.car.brand, [Validators.required, Validators.pattern('^[а-щА-ЩЬьЮюЯяЇїІіЄєҐґыЫёЁa-zA-Z]+$')]],
             releaseYear: [this.car.releaseYear, [Validators.required, Validators.min(1900), Validators.max(2024)]],
             isInUse: [this.car.isInUse || false],
-            gearBox: [this.car.gearBox, [Validators.required, Validators.pattern('/^[a-zA-Z]+$/')]],
+            gearBox: [this.car.gearBox, [Validators.required, Validators.pattern('^[а-щА-ЩЬьЮюЯяЇїІіЄєҐґыЫёЁa-zA-Z]+$')]],
             seatsQuantity: [this.car.seatsQuantity, [Validators.required, Validators.min(1)]],
             dailyRentalPrice: [this.car.dailyRentalPrice, [Validators.required, Validators.min(1)]]
         });
@@ -46,12 +46,12 @@ export class CarDialogComponent implements OnInit {
    }
 
    private updateCar(): void {
-    const formValue = this.form.value as Car;    
+    const formValue = this.form.value as Car;
     this.data.updateCar(formValue);
    }
 
    private createCar(): void {
-    const formValue = this.form.value as Car;    
+    const formValue = this.form.value as Car;
     this.data.createCar(formValue);
    }
 
@@ -60,7 +60,7 @@ export class CarDialogComponent implements OnInit {
         disableClose: true,
         width: '400px'
     });
-    dialogRef.componentInstance.message = 'Ви впевнені, що хочете видалити машину? Після підтвердження відмінити цю дію буде неможливо.'; 
+    dialogRef.componentInstance.message = 'Ви впевнені, що хочете видалити машину? Після підтвердження відмінити цю дію буде неможливо.';
     dialogRef.afterClosed().subscribe((res: boolean) => {
         if (res) {
             this.data.deleteCar(this.car.id);

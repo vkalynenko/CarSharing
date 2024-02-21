@@ -25,8 +25,8 @@ export class ClientDialogComponent implements OnInit{
     private createForm(): FormGroup {
         return this._fb.group({
             id: [this.client.id],
-            lastName: [this.client.lastName, [Validators.required, Validators.pattern('/^[a-zA-Z]+$/')]],
-            firstName: [this.client.firstName, [Validators.required, Validators.pattern('/^[a-zA-Z]+$/')]],
+            lastName: [this.client.lastName, [Validators.required, Validators.pattern('^[а-щА-ЩЬьЮюЯяЇїІіЄєҐґыЫёЁa-zA-Z]+$')]],
+            firstName: [this.client.firstName, [Validators.required, Validators.pattern('^[а-щА-ЩЬьЮюЯяЇїІіЄєҐґыЫёЁa-zA-Z]+$')]],
             email: [this.client.email, [Validators.required, Validators.email]],
             passportNumber: [this.client.passportNumber, [Validators.required, Validators.minLength(5)]],
             isRegularFrom: [this.client.isRegularFrom],

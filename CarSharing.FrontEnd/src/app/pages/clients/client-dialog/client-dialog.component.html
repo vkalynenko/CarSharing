@@ -12,7 +12,7 @@
                 name="customerForm"
                 autocomplete="off">
                 <div class="column">
-                    <mat-form-field appearance="outline">
+                    <mat-form-field class="with-margin" appearance="outline">
                         <mat-label>
                             Ім'я
                         </mat-label>
@@ -21,11 +21,11 @@
                             Поле обов'язкове для заповнення
                         </mat-error>
                         <mat-error *ngIf="form.get('firstName')?.hasError('pattern')">
-                            Поле не має містити інших символів, окрім літер
+                          Поле має містити лише літери
                         </mat-error>
                     </mat-form-field>
 
-                    <mat-form-field appearance="outline">
+                    <mat-form-field class="with-margin" appearance="outline">
                         <mat-label>
                             Прізвище
                         </mat-label>
@@ -34,7 +34,7 @@
                             Поле обов'язкове для заповнення
                         </mat-error>
                         <mat-error *ngIf="form.get('lastName')?.hasError('pattern')">
-                            Поле не має містити інших символів, окрім літер
+                            Поле має містити лише літери
                         </mat-error>
                     </mat-form-field>
 
@@ -53,7 +53,7 @@
                 </div>
                 <div class="column">
 
-                    <mat-form-field appearance="outline">
+                    <mat-form-field class="with-margin" appearance="outline">
                         <mat-label>
                             Електронна адреса
                         </mat-label>
@@ -66,7 +66,7 @@
                         </mat-error>
                     </mat-form-field>
            
-                    <mat-form-field appearance="outline">
+                    <mat-form-field class="with-margin" appearance="outline">
                         <mat-label>
                            Номер телефону
                         </mat-label>
