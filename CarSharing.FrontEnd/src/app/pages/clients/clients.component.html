@@ -16,16 +16,16 @@
 
         <!-- In Use Column -->
         <ng-container matColumnDef="isRegular">
-            <th mat-header-cell *matHeaderCellDef>Постійний користувач?</th>
-            <td mat-cell *matCellDef="let element">{{element.isRegular ? 'Так' : 'Ні'}}</td>
+            <th mat-header-cell *matHeaderCellDef>Тип</th>
+            <td mat-cell *matCellDef="let element">{{element.isRegular ? 'Постійний клієнт' : 'Новий клієнт'}}</td>
         </ng-container>
-      
+
         <!-- Name Column -->
         <ng-container matColumnDef="firstName">
           <th mat-header-cell *matHeaderCellDef>Ім'я</th>
           <td mat-cell *matCellDef="let element">{{element.firstName}}</td>
         </ng-container>
-      
+
         <!-- Surname Column -->
         <ng-container matColumnDef="lastName">
           <th mat-header-cell *matHeaderCellDef>Прізвище</th>
@@ -37,19 +37,19 @@
           <th mat-header-cell *matHeaderCellDef>Номер та серія паспорту</th>
           <td mat-cell *matCellDef="let element">{{element.passportNumber}}</td>
         </ng-container>
-      
+
         <!-- Email Column -->
         <ng-container matColumnDef="email">
           <th mat-header-cell *matHeaderCellDef>Електронна Адреса</th>
           <td mat-cell *matCellDef="let element">{{element.email}}</td>
         </ng-container>
-    
+
           <!-- Phone Column -->
           <ng-container matColumnDef="phoneNumber">
             <th mat-header-cell *matHeaderCellDef>Номер телефону</th>
             <td mat-cell *matCellDef="let element">{{element.phoneNumber}}</td>
           </ng-container>
-      
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr
             (click)="showDetails(row)"
