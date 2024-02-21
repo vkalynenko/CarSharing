@@ -16,8 +16,8 @@
 
         <!-- In Use Column -->
         <ng-container matColumnDef="isInUse">
-            <th mat-header-cell *matHeaderCellDef>Орендована?</th>
-            <td mat-cell *matCellDef="let element">{{element.isInUse ? 'Так' : 'Ні'}}</td>
+            <th mat-header-cell *matHeaderCellDef>Статус</th>
+            <td mat-cell *matCellDef="let element">{{element.isInUse ? 'Орендована' : 'Не орендована'}}</td>
         </ng-container>
       
         <!-- Brand Column -->
